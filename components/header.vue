@@ -23,7 +23,7 @@
       >
       </v-img>
         <v-spacer /> 
-            
+          {{$route.name}}
         <v-spacer />
         <Perfil
           v-for='(dato,id) in datos' 
@@ -135,7 +135,7 @@ export default {
         {
           icon: 'mdi-home-outline',
           title: 'Propiedades',
-          to: '/admin/property'
+          to: '/admin/property/list'
         },
         {
           icon: 'mdi-comment-text-multiple-outline',

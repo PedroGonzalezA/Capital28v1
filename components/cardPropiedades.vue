@@ -12,10 +12,25 @@
         height="245px"
       >
         <v-card-text class="text-center">
-          <p class="text-h4 text--primary">
-            {{nombre}}
-          </p>
-          <p>{{direccion}}</p>
+          <v-row>
+            <v-col cols="10">
+              <p class="text-h5 text--primary">
+                {{nombreDessarrollo}}
+              </p>
+            </v-col>
+            <v-col cols="2">
+              <p class="text-h5 text--primary">
+                {{id}}
+              </p>
+            </v-col>
+            <v-col>
+              <p>{{precio}}</p>
+            </v-col>
+            <v-col>
+              
+            </v-col>
+          </v-row>
+          
           <div>
             <v-chip
               :color="getColor(status)"
@@ -110,14 +125,14 @@
           required:'true',
           default:'0'
         },
-        nombre: {
+        nombreDessarrollo: {
           type: String,
           default:'Sin nombre',
           required:'true',
         },
-        direccion: {
+        precio: {
           type: String,
-          default:'Sin dirreccion',
+          default:'Sin precio',
           required:'true',
         },
         status: {
@@ -125,22 +140,42 @@
           required:'true',
           default:'Sin status'
         },
-        hastaUSA: {
+        recamaras: {
           type: String,
           required:'true',
-          default:'Sin hastaUSA'
+          default:'Sin recamaras'
         },
-        desdeUSA: {
+        banos: {
           type: String,
           required:'true',
           default:'Sin desdeUSA'
         },
-        hastaMXN: {
+        planta: {
           type: String,
           required:'true',
           default:'Sin hastaMXN'
         },
-        desdeMXN: {
+        tdp: {
+          type: String,
+          required:'true',
+          default:'Sin desdeMXN'
+        },
+        m2: {
+          type: String,
+          required:'true',
+          default:'Sin desdeMXN'
+        },
+        precioxm2: {
+          type: String,
+          required:'true',
+          default:'Sin desdeMXN'
+        },
+        construccion: {
+          type: String,
+          required:'true',
+          default:'Sin desdeMXN'
+        },
+        terraza: {
           type: String,
           required:'true',
           default:'Sin desdeMXN'

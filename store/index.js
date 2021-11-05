@@ -13,8 +13,8 @@ export const actions ={
         await dispatch('posts/loadPosts');
     },
 
-    sumarDos({commit}){
-        commit('increment')
+    false({commit}){
+        commit(false)
     }
     
 }

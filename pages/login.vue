@@ -40,22 +40,29 @@
                                                     placeholder="Usuario"
                                                     color="#6ED9A0"
                                                     dark
-                                                    :v-model="contacto.email"
+                                                    v-model="contacto.correo"
                                                 ></v-text-field>
-                                            
                                                 <v-text-field
-                                                    label="Contraseña"
                                                     placeholder="Contraseña"
                                                     color="#6ED9A0"
                                                     outlined
                                                     dark
-                                                    :v-model="contacto.username"
+                                                    v-model="contacto.password"
+                                                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                                                    :rules="[rules.required, rules.min]"
+                                                    :type="show1 ? 'text' : 'password'"
+                                                    name="input-10-1"
+                                                    label="Contraseña"
+                                                    hint="At least 8 characters"
+                                                    counter
+                                                    @click:append="show1 = !show1"
                                                 ></v-text-field>
                                         </v-card-text>
                                         <v-card-actions>
                                             <v-btn
                                                 color="#6ED9A0"
-                                                class=" text-capitalize  v-btn--block"
+                                                class=" text-capitalize "
+                                                block
                                                 dark
                                                 to="admin/lead"
                                             >
@@ -84,7 +91,13 @@ export default {
             contacto:{
                 correo:'pedro',
                 password:'123'
-            }
+            },
+            show1: false,
+            rules: {
+            required: value => !!value || 'Required.',
+            min: v => v.length >= 8 || 'Min 8 characters',
+            emailMatch: () => (`The email and password you entered don't match`),
+        },
         }
     },
     computed: {
