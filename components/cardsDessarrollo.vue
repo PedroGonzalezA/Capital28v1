@@ -50,7 +50,7 @@
                 Detalles
               </p>
               <v-spacer />
-              <v-btn icon height="25px" width="25px" :to="'/admin/real-estate-development/card/'+id">
+              <v-btn icon height="25px" width="25px" :to="'/admin/real-estate-development/edit/'+nombre">
                 <v-icon>
                   mdi-playlist-edit
                 </v-icon>
