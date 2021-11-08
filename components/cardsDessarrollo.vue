@@ -15,6 +15,7 @@
           <p class="text-h4 text--primary">
             {{nombre}}
           </p>
+          <p>{{id}}</p>
           <p>{{direccion}}</p>
           <div>
             <v-chip
@@ -107,8 +108,8 @@
     props:{
         id: {
           type: Number,
-          required:'true',
-          default:'0'
+          required:true,
+          default:0
         },
         nombre: {
           type: String,

@@ -22,12 +22,16 @@
               <p class="text-h5 text--primary">
                 {{id}}
               </p>
-            </v-col>
-            <v-col>
+            </v-col> 
+            <v-col cols="8">
               <p>{{precio}}</p>
             </v-col>
-            <v-col>
-              
+            <v-col cols="2">
+                            <p>{{recamaras}}</p>
+
+            </v-col>
+            <v-col cols="2">
+              <p>{{banos}}</p>
             </v-col>
           </v-row>
           
