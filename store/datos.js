@@ -3,7 +3,7 @@
 export const state = () => ({
   datosHeaderUser:[],
   datosHeaderContact:[],
-  datosHeaderContactRealEstateGroup:[],
+  datosHeaderContactRealEstateGroup:null,
 })
 
 // Actions
@@ -14,7 +14,7 @@ export const actions = {
     let { data } = await this.$axios.post('/user/getUserById');
     commit('setDatosHeaderUser',data.Data.User);
     commit('setDatosHeaderContact',data.Data.contact);
-    commit('setDatosHeaderContactRealEstateGroup',data.Data.User.real_estate_group);
+    commit('setDatosHeaderContactRealEstateGroup',data.Data.User);
   },
 }
 

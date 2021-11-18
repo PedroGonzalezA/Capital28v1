@@ -1,7 +1,10 @@
 <template>
   <v-row>
-    <v-col class="text-center">
-    
+    <v-col class="text-center" > 
+      <div v-for="dato in datosLead" :key="dato._id">
+         {{dato._id}}
+      </div>
+     
     </v-col>
   </v-row>
 </template>
@@ -15,18 +18,18 @@ export default {
     }
   },
   computed:{
-    
+    ...mapGetters('lead', {
+            datosLead: 'getLead',
+        })
   },
   methods:{
-    datosUsuario(){
-    
-      this.datos=this.$store.state('token');
-    },
-    
+    ...mapActions('lead', {
+            datosLeadF: 'datosLead',
+    })
   },
   mounted(){
-      this.$store.dispatch('user/tokenP');
-     
+      this.datosLeadF();
+      
   }
 }
 </script>
