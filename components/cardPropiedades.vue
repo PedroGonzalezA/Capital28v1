@@ -1,131 +1,115 @@
 <template>
-    <v-col 
+  <v-col 
       cols="12"
       sm="12"
       md="12"
       lg="12"
       class="pa-2 mx-auto"
+  >
+    <v-card
+    
+      class="mx-auto titulo"
+      width="304"
     >
-      <v-card
-        class="mx-auto cardNuevo"
-        max-width="344"      
-        height="245px"
-      >
-        <v-card-text class="text-center">
-          <v-row>
-            <v-col cols="10">
-              <p class="text-h5 text--primary">
-                {{nombreDessarrollo}}
-              </p>
-            </v-col>
-            <v-col cols="2">
-              <p class="text-h5 text--primary">
-                {{id}}
-              </p>
-            </v-col> 
-            <v-col cols="8">
-              <p>{{precio}}</p>
-            </v-col>
-            <v-col cols="2">
-                            <p>{{recamaras}}</p>
+      <v-card-title  >
+        <v-row>
+          <v-col cols="4" class="white--text">
+            {{id}}
+          </v-col>
+          <v-col cols="8"  class="white--text">
+            {{nombreDessarrollo}}
+          </v-col>
+        </v-row>
+      </v-card-title>
 
+      <v-card-text class="pa-0">
+        <v-container fluid>
+          <v-row align="center" justify="center">
+            <v-col cols="8" class="pa-2">
+              <div class="white--text">
+               Precio: {{precio}} 
+              </div>
+              
             </v-col>
-            <v-col cols="2">
-              <p>{{banos}}</p>
+            <v-col cols="4" class="pa-2">
+              <v-chip
+                :color="getColor(status)"
+                dark
+                label
+              >
+                {{status}}
+              </v-chip>
             </v-col>
           </v-row>
+        </v-container>
+      </v-card-text>
+
+      <v-card-actions >
+        <v-btn
+          color="white"
+          icon
+        >
+          <v-icon>
+            mdi-playlist-edit
+          </v-icon>
+        </v-btn>
+
+        <v-spacer></v-spacer>
+
+        <v-btn
+          icon
+          @click="show = !show"
+          color="white"
+        >
+          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
+      </v-card-actions>
+                      
+      <v-expand-transition>
+        <div v-show="show">
+          <v-divider></v-divider>
           
-          <div>
-            <v-chip
-              :color="getColor(status)"
-              dark
-            >
-              {{status}}
-            </v-chip>
-          </div>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn
-            tile
-            text
-            class=" text-capitalize  transparent"
-            block
-            color="teal accent-4"
-            @click="$emit('update:reveal',!reveal)"
-          >
-            Detalles
-          </v-btn>
-        </v-card-actions>
+          <v-card-text style="background:white;" >
+            <v-row align="center" justify="center">
+              <v-col cols="12" class="pa-1">
+                  <h3>DETALLES</h3>
+              </v-col>
+              <v-col cols="6" class="pa-1">
+                  <div>
+                    <strong>Recamaras: </strong>{{recamaras}} 
+                  </div>
+              </v-col>
+              <v-col cols="6" class="pa-1">
+                  <strong>Baños: </strong>{{banos}}
+              </v-col>
+              <v-col cols="6" class="pa-1">
+                  <div>
+                    <strong>Planta: </strong>{{planta}} 
+                  </div>
+              </v-col>
 
-        <v-expand-transition>
-          <v-card
-            v-if="reveal"
-            class="transition-fast-in-fast-out v-card--reveal"
-            style="height: 100%;"
-          >
-            <v-card-title class="v-card-title--pers">
-              <p class="text-h4 text--primary">
-                Detalles
-              </p>
-              <v-spacer />
-              <v-btn icon height="25px" width="25px" :to="'/admin/real-estate-development/card/'+id">
-                <v-icon>
-                  mdi-playlist-edit
-                </v-icon>
-              </v-btn>
-            </v-card-title>
-            <v-card-text class="pb-0">
-              <v-row>
-                <v-col cols="6" class="pa-1 v-col--pers" >
-                  <div class="text--primary">
-                    <div><p><strong>Desde USA: </strong>{{desdeUSA}}</p></div>
-                  </div>
-                </v-col> 
-                <v-col cols="6" class="pa-1 v-col--pers">
-                  <div class="text--primary">
-                    <div><p><strong>Hasta USA: </strong>{{hastaUSA}}</p></div>
-                  </div>
-                </v-col> 
-                <v-col cols="6" class="pa-1 v-col--pers">
-                  <div class="text--primary">
-                    <div><p><strong>Desde MXN: </strong>{{desdeMXN}}</p></div>
-                  </div>
-                </v-col> 
-                <v-col cols="6" class="pa-1 v-col--pers">
-                  <div class="text--primary">
-                    <div><p><strong>Hasta MXN: </strong>{{hastaMXN}}</p></div>
-                  </div>
-                </v-col> 
-              </v-row>         
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <br>
-              <br>
-              <br>
-              <v-btn
-                tile
-                text
-                class="   transparent"
-                block
-                color="red darken-2"
-                dark
-                @click="$emit('update:reveal',!reveal)"
-              >
-                Cerrar
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-expand-transition>
-      </v-card>
-    </v-col>
-
- 
+              <v-col cols="6" class="pa-1">
+                <div><strong>TDP: </strong>{{tdp}}</div>  
+              </v-col>
+              <v-col cols="6" class="pa-1"> 
+                <div><strong>M2: </strong>{{m2}}</div>
+              </v-col>
+              <v-col cols="6" class="pa-1">
+                <div><strong>Precio X M2: </strong>{{precioxm2}}</div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+    </v-card>
+  </v-col>
 </template>
+   
 <script>
   export default {
     props:{
         id: {
-          type: Number,
+          type: String,
           required:'true',
           default:'0'
         },
@@ -196,7 +180,9 @@
     },
     data() {
       return{
-        
+              show: false,
+            max25chars: v => v.length <= 25 || 'Entrada demasiado larga!',
+
        
       }
     },
@@ -206,23 +192,45 @@
         else if (dato == '') return ''
         else return 'green'
       },
+        save () {
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Dato cambiado'
+      },
+      cancel () {
+        this.snack = true
+        this.snackColor = 'error'
+        this.snackText = 'Cancelado'
+      },
+      open () {
+        this.snack = true
+        this.snackColor = 'info'
+        this.snackText = 'Dialogo abierto'
+      },
+      close () {
+        console.log('Dialog cerrado')
+      },
     },
   }
 </script>
-<style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
-.v-card-title--pers {
-  max-height: 68px;
-}
-.v-col--pers{
-  max-height: 44px;
-}
-.cardNuevo{
-  width: 300px;
-}
-</style>
+<style lang="scss" scoped>
+  .v-card--reveal {
+    bottom: 0;
+    opacity: 1 !important;
+    position: absolute;
+    width: 100%;
+  }
+  .v-card-title--pers {
+    max-height: 68px;
+  }
+  .v-col--pers{
+    max-height: 44px;
+  }
+  .cardNuevo{
+    width: 300px;
+  }
+  .titulo{
+    background:$colorAzulB;
+    color:black;
+  }
+</style>>

@@ -6,7 +6,7 @@
       app
       dark
       height="48px"
-      color="#262d3c"
+      class="header"
     >
       <v-app-bar-nav-icon 
       
@@ -26,22 +26,23 @@
           {{$route.name}}
         <v-spacer />
         <Perfil
-          v-for='(dato,id) in datos' 
-          :key="id"
-          :img="dato.img"
-          :id="dato.id"
-          :fullName="dato.fullName"
-          :email="dato.email"
-          :totalLeads="dato.totalLeads"
-          :leadsActivos="dato.leadsActivos"
-          :tipoUsuario="dato.tipoUsuario"
-          :fechaRegistro="dato.fechaRegistro"
-          :ultimaActualizacion="dato.ultimaActualizacion"
-          :telefono="dato.telefono"
+          :img="imagenUser"
+          :id="datosHeaderContact.phone"
+          :fullName="datosHeaderUser.name"
+          :email="datosHeaderUser.email"
+          totalLeads=2
+          leadsActivos=2
+          :tipoUsuario="datosHeaderUser.role"
+          :fechaRegistro="datosHeaderContactRealEstateGroup"
+          :ultimaActualizacion="datosHeaderContactRealEstateGroup"
+          :telefono="datosHeaderContact.phone"
         />
+        
+        
 
       <v-btn icon
       color="red"
+      @click="CerrarSesion"
       >
         <v-icon>mdi-power</v-icon>      
       </v-btn>
@@ -53,7 +54,7 @@
       :clipped="clipped"
       fixed
       app
-      color="#262d3c"
+      class="header"
       dark
       temporary
     >
@@ -78,7 +79,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" class=".text-caption" />
+            <v-list-item-title v-text="item.title" class=".text-caption textoTitulo" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -88,6 +89,8 @@
     
 </template>
 <script>
+import { mapState, mapActions,mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -96,21 +99,7 @@ export default {
       miniVariant: true,
       right: true,
       rightDrawer: false,
-      title: '',
-      datos: [{
-        id:'1',
-        img:'https://res.cloudinary.com/capital28-investments/image/upload/v1629139962/Capital%2028/brokers/Test_Admin_Test_Desarrollo_atiu0n.jpg',
-        fullName: 'Pedro Gonzalez',
-        email: 'pedro-pruebas@hotmail.com',
-        totalLeads:100,
-        leadsActivos:10,
-        tipoUsuario:'usuario',
-        fechaRegistro:'3 de octubre de 2021',
-        ultimaActualizacion:'3 de octubre de 2021',
-        telefono:'9981316578',
-        contra:'',
-        confirmarContra:'',
-      }],
+      imagenUser:"",
       items: [
         {
           icon: 'mdi-account-box-multiple-outline',
@@ -150,6 +139,37 @@ export default {
       ],
       
     }
+  },
+  computed:{
+    ...mapGetters('datos', {
+            datosHeaderUser: 'getDatosHeaderUser',
+            datosHeaderContact: 'getDatosHeaderContact',
+            datosHeaderContactRealEstateGroup: 'getDatosHeaderContactRealEstateGroup',
+        })
+  },
+  methods:{
+    CerrarSesion() {
+        this.CerrarSesion
+    },
+    ...mapActions('user', {
+            CerrarSesion: 'cerrarSesion',
+    }),
+    ...mapActions('datos', {
+            datosHeaderUserF: 'datosHeaderUser',
+    })
+  },
+  mounted(){
+      this.datosHeaderUserF();
+      let imagen = localStorage.getItem('user_image');  
+      this.imagenUser= imagen;   
   }
 }
 </script>
+<style lang="scss" scoped>
+.header{
+  background: $colorPrincipal;
+}
+.textoTitulo{
+  font-size: 14px;
+}
+</style>

@@ -4,10 +4,10 @@
         <v-container fluid>
           <v-col cols="12">
             <v-row align="center" justify="center" >
-              <v-col cols="3" sm="7" md="9" lg="11">
+              <v-col cols="9" sm="7" md="9" lg="11">
                   <v-text-field v-model="nuevaTarea" v-on:keyup.enter="agregarTarea" ></v-text-field>
               </v-col>
-              <v-col cols="9" sm="5" md="3" lg="1">
+              <v-col cols="3" sm="5" md="3" lg="1">
                   <v-btn icon @click="agregarTarea"><v-icon>mdi-plus</v-icon></v-btn>
               </v-col>
             </v-row>
@@ -19,6 +19,7 @@
                           <CardsDessarrollo
                               :key="Identificador"
                               :id="Identificador"
+                              :img="item.img"
                               :nombre="item.nombre"
                               :direccion='item.direccion'
                               :status='item.status'
@@ -45,14 +46,15 @@
       tareas:[
          {
               id:0,
-              nombre:'Test1',
+              nombre:'Test1 proyecto prueba',
               direccion:'Direccion',
               status:'EN OBRA',
               desdeUSA:'$250,000 USA',
               hastaUSA:'$500,000 USA',
               desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
+              hastaMXN:'$12,000,000 MXN',        
               reveal: false, 
+              img:'https://res.cloudinary.com/capital28-investments/image/upload/v1570208235/Capital%2028/TheBoatOver.jpg'
           },
           {
               id:1,
@@ -64,6 +66,7 @@
               desdeMXN:'$500,000 MXN',
               hastaMXN:'$1,000,000 MXN',        
               reveal: false, 
+              img:'https://res.cloudinary.com/capital28-investments/image/upload/v1570208235/Capital%2028/TheBoatOver.jpg'
           },
           {
               id:2,
@@ -75,6 +78,7 @@
               desdeMXN:'$500,000 MXN',
               hastaMXN:'$1,000,000 MXN',        
               reveal: false, 
+              img:''
           },
           {
               id:3,
@@ -86,6 +90,7 @@
               desdeMXN:'$500,000 MXN',
               hastaMXN:'$1,000,000 MXN',        
               reveal: false, 
+              img:''
           },
           {
               id:4,
@@ -97,6 +102,7 @@
               desdeMXN:'$500,000 MXN',
               hastaMXN:'$1,000,000 MXN',        
               reveal: false, 
+              img:''
           },
           {
               id:5,
@@ -108,6 +114,7 @@
               desdeMXN:'$500,000 MXN',
               hastaMXN:'$1,000,000 MXN',        
               reveal: false, 
+              img:''
           },
           {
               id:6,
@@ -119,6 +126,7 @@
               desdeMXN:'$500,000 MXN',
               hastaMXN:'$1,000,000 MXN',        
               reveal: false, 
+              img:''
           },
       ],
       nuevaTarea:'',
@@ -135,8 +143,8 @@
         desdeMXN:'Vacio',
         hastaMXN:'Vacio',
         reveal:false,
+        img:'Vacio'
       });
-      console.log(this.id);
         this.nuevaTarea='';
         localStorage.setItem('componente',JSON.stringify(this.tareas));
       }

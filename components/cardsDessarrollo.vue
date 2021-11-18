@@ -9,33 +9,43 @@
       <v-card
         class="mx-auto cardNuevo"
         max-width="344"      
-        height="245px"
+        height="241px"
       >
-        <v-card-text class="text-center">
-          <p class="text-h4 text--primary">
-            {{nombre}}
-          </p>
-          <p>{{id}}</p>
-          <p>{{direccion}}</p>
-          <div>
-            <v-chip
-              :color="getColor(status)"
-              dark
-            >
-              {{status}}
-            </v-chip>
-          </div>
+        <div class="imagenCard">
+          <v-img v-bind:src='imagen' class="imagenCard"></v-img>
+        </div>
+        <v-card-text class="text-center" >
+          <v-row align="center">
+            <v-col cols="8" class="paddingCol">
+              <div class=" text--primary">
+                <strong>{{nombre}}</strong>
+              </div>
+            </v-col>
+            
+            <v-col cols="4" class="paddingCol">
+              <div>
+                <v-chip
+                  :color="getColor(status)"
+                  dark
+                >
+                  {{status}}
+                </v-chip>
+              </div>
+            </v-col>
+          </v-row>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="pa-0">
           <v-btn
             tile
-            text
-            class=" text-capitalize  transparent"
+        
+            class=" text-capitalize  transparent boton"
             block
-            color="teal accent-4"
+            dark
             @click="$emit('update:reveal',!reveal)"
           >
-            Detalles
+              <v-icon>
+                  mdi-chevron-up
+                </v-icon>
           </v-btn>
         </v-card-actions>
 
@@ -45,55 +55,65 @@
             class="transition-fast-in-fast-out v-card--reveal"
             style="height: 100%;"
           >
-            <v-card-title class="v-card-title--pers">
-              <p class="text-h4 text--primary">
-                Detalles
-              </p>
+          
+            <v-card-title class="v-card-title--pers" >
+              <p class="text-h4  white--text">Detalles</p>
               <v-spacer />
               <v-btn icon height="25px" width="25px" :to="'/admin/real-estate-development/edit/'+nombre">
-                <v-icon>
+                <v-icon color="white">
                   mdi-playlist-edit
                 </v-icon>
               </v-btn>
             </v-card-title>
             <v-card-text class="pb-0">
-              <v-row>
-                <v-col cols="6" class="pa-1 v-col--pers" >
-                  <div class="text--primary">
-                    <div><p><strong>Desde USA: </strong>{{desdeUSA}}</p></div>
-                  </div>
-                </v-col> 
-                <v-col cols="6" class="pa-1 v-col--pers">
-                  <div class="text--primary">
-                    <div><p><strong>Hasta USA: </strong>{{hastaUSA}}</p></div>
-                  </div>
-                </v-col> 
-                <v-col cols="6" class="pa-1 v-col--pers">
-                  <div class="text--primary">
-                    <div><p><strong>Desde MXN: </strong>{{desdeMXN}}</p></div>
-                  </div>
-                </v-col> 
-                <v-col cols="6" class="pa-1 v-col--pers">
-                  <div class="text--primary">
-                    <div><p><strong>Hasta MXN: </strong>{{hastaMXN}}</p></div>
-                  </div>
-                </v-col> 
-              </v-row>         
+              <v-container fluid class="datosDessarrollo">
+                <v-row justify="center" align="center">
+                  <v-col cols="12" class="pa-1">
+                    <div>
+                      {{direccion}}
+                    </div>
+                  </v-col>
+                  <v-col cols="6" class="pa-1">
+                    <div>
+                     <strong>DESDE USA:</strong> {{desdeUSA}}
+                      
+                    </div>
+                  </v-col>
+                  <v-col cols="6" class="pa-1">
+                    <div>
+                      <strong>HASTA USA:</strong> {{hastaUSA}}
+                      
+                    </div>
+                  </v-col>
+                  <v-col cols="6" class="pa-1"> 
+                    <div>
+                      <strong>DESDE MXN:</strong> {{desdeMXN}}
+                      
+                    </div>
+                  </v-col>
+                  <v-col cols="6" class="pa-1">
+                    <div>
+                      <strong>HASTA MXN:</strong> {{hastaMXN}}
+                      
+                    </div>
+                  </v-col>
+                </v-row>  
+              </v-container>
+                     
             </v-card-text>
-            <v-card-actions class="pt-0">
-              <br>
-              <br>
-              <br>
-              <v-btn
-                tile
+
+            <v-card-actions class="pa-0">
+              <v-btn  
                 text
-                class="   transparent"
+                color="blue"
+                class="   transparent botonCerrar"
                 block
-                color="red darken-2"
                 dark
                 @click="$emit('update:reveal',!reveal)"
               >
-                Cerrar
+                <v-icon>
+                  mdi-chevron-down
+                </v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -110,6 +130,11 @@
           type: Number,
           required:true,
           default:0
+        },
+        img: {
+          type: String,
+          default:'Sin img',
+          required:'true',
         },
         nombre: {
           type: String,
@@ -158,20 +183,21 @@
     },
     data() {
       return{
-        
+        imagen: this.img
        
       }
     },
     methods: {
       getColor (dato) {
-        if (dato == 'EN OBRA') return 'yellow'
+        if (dato == 'EN OBRA') return 'orange'
         else if (dato == '') return ''
-        else return 'green'
+        else return 'black'
       },
+     
     },
   }
 </script>
-<style>
+<style lang="scss" scoped>
 .v-card--reveal {
   bottom: 0;
   opacity: 1 !important;
@@ -180,11 +206,35 @@
 }
 .v-card-title--pers {
   max-height: 68px;
+  background:$colorAzulB;
 }
 .v-col--pers{
   max-height: 44px;
 }
 .cardNuevo{
   width: 300px;
+}
+
+.paddingCol{
+    max-height: 56px;
+    padding: 0px;
+}
+.datosDessarrollo{
+  height: 137px;
+}
+.botonCerrar{
+  border-radius: 0 0 5px 5px;
+}
+.boton{
+  border-radius: 0 0 5px 5px;
+  background: $colorAzulB;
+}
+.imagenCard{
+  height:165px;
+  width:300px;
+  border-radius: 5px 5px 0 0;
+}
+.datos{
+  height: 170px;
 }
 </style>

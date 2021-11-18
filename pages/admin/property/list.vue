@@ -1,33 +1,42 @@
 <template>
   <v-row>
+
     <v-col cols="12">
-      <TablaPropiedades/>
-    </v-col>
-    <v-col cols="12">
-          <v-col cols="12">
-            <v-row no-gutters justify="center">
-              <div v-for="post in posts" :key="post.id">
-                <Cards
-                  :id="post.id"
-                  :nombre="post.username"
-                  :direccion='post.address.street'
-                  status='En OBRA'
-                  desdeUSA=''
-                  hastaUSA=''
-                  desdeMXN=''
-                  hastaMXN=''
-                  :reveal.sync="reveal"
-                />
-              </div>
+         <v-col cols="12">
+           <v-row align="center">
+              <v-col
+                cols="10"
+                sm="11"
+                md="11"
+                lg="11"
+              >
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Buscar"
+                  hide-details
+                 ></v-text-field>
+              </v-col>
+              <v-col
+                cols="2"
+                sm="1"
+                md="1"
+                lg="1"
+              >
+                <v-btn icon>
+                  <v-icon>mdi-tune</v-icon>      
+                </v-btn>
+              </v-col>
             </v-row>
-            
-          </v-col>
+         </v-col>
+
           <v-col cols="12">
             <v-row no-gutters justify="center">
-                <div  v-for='(item,id) in tareas' :key="id">
+                <div  v-for='item in tareas' :key="item.id" >
                 
                           <CardPropiedades 
-                              :id="id"
+                              
+                              :id="item.id"
                               :nombreDessarrollo="item.nombreDessarrollo"
                               :precio='item.precio'
                               :status='item.status'
@@ -52,13 +61,28 @@
 <script>
   export default {
     data: () => ({
-      titulo:'gym',
+      search:'',
       tareas:[
         {
-          id:'1',
+          id:'L-110',
           status:'Disponible',
-          nombreDessarrollo:'prueba',
-          precio:'$200,000 MXN',
+          nombreDessarrollo:'Prueba test 1',
+          precio:'$1,000,000 MXN',
+          recamaras: '1',
+          banos: '2',
+          planta:'Planta Baja',
+          tdp:'A',
+          m2:'34m2',
+          precioxm2:'$2,500 USD m2',
+          construccion:'90',
+          terraza:'4',
+          reveal:false,
+        },
+        {
+          id:'L-111',
+          status:'Disponible',
+          nombreDessarrollo:'prueba1',
+          precio:'$300,000 MXN',
           recamaras: '1',
           banos: '2',
           planta:'Planta Baja',
@@ -68,31 +92,47 @@
           construccion:'90',
           terraza:'4',
           reveal:false
-        ,}
+        },
+         {
+          id:'L-112',
+          status:'Disponible',
+          nombreDessarrollo:'prueba2',
+          precio:'$400,000 MXN',
+          recamaras: '1',
+          banos: '2',
+          planta:'Planta Baja',
+          tdp:'A',
+          m2:'34m2',
+          precioxm2:'$2,500 USD m2',
+          construccion:'90',
+          terraza:'4',
+          reveal:false
+        },
+         {
+          id:'L-113',
+          status:'Disponible',
+          nombreDessarrollo:'prueba3',
+          precio:'$400,000 MXN',
+          recamaras: '1',
+          banos: '2',
+          planta:'Planta Baja',
+          tdp:'A',
+          m2:'34m2',
+          precioxm2:'$2,500 USD m2',
+          construccion:'90',
+          terraza:'4',
+          reveal:false
+        }
       ],
       nuevaTarea:'',
       reveal:false,
     }),
     methods:{
-      agregarTarea: function(){
-        this.tareas.push({
-        nombre:this.nuevaTarea,
-        direccion:'Sin dirrecion',
-        status:'Sin estado',
-        desdeUSA:'Vacio',
-        hastaUSA:'Vacio',
-        desdeMXN:'Vacio',
-        hastaMXN:'Vacio',
-        reveal:false,
-      });
-        this.nuevaTarea='';
-      }
+      
     },
   
     computed: {
-        posts() {
-            return this.$store.getters['posts/getPosts']
-        }
+        
     }
    
   }

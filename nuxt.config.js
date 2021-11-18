@@ -39,7 +39,14 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
+    
   ],
+  axios: {
+    baseURL: 'https://dev.api.capital28.investments/api',
+    Headers: {"Accept": "application/json","Content-Type": "application/json"},
+
+  },
+
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

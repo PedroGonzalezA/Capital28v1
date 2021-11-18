@@ -1,6 +1,7 @@
 <template>
     <v-container
-    class="fill-height container--fluid contenedor" 
+    class="fill-height  contenedor"
+    fluid 
     >
         <v-row
         align="center"
@@ -32,7 +33,7 @@
                                 
                                 
                                 <v-col cols="12" sm="8" md="6">
-                                    <v-form v-on:submit.prevent="procesar">
+                                    <v-form >
                                         <v-card-text>
                                                 <v-text-field
                                                     label="Usuario"
@@ -40,21 +41,19 @@
                                                     placeholder="Usuario"
                                                     color="#6ED9A0"
                                                     dark
-                                                    v-model="contacto.correo"
+                                                    v-model="email"
                                                 ></v-text-field>
                                                 <v-text-field
                                                     placeholder="Contraseña"
                                                     color="#6ED9A0"
                                                     outlined
                                                     dark
-                                                    v-model="contacto.password"
+                                                    v-model="password"
                                                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                                                    :rules="[rules.required, rules.min]"
+                                                    :rules="[rules.required]"
                                                     :type="show1 ? 'text' : 'password'"
                                                     name="input-10-1"
                                                     label="Contraseña"
-                                                    hint="At least 8 characters"
-                                                    counter
                                                     @click:append="show1 = !show1"
                                                 ></v-text-field>
                                         </v-card-text>
@@ -64,7 +63,7 @@
                                                 class=" text-capitalize "
                                                 block
                                                 dark
-                                                to="admin/lead"
+                                                @click="LoguearUsuario"
                                             >
                                                 Login
                                             </v-btn>
@@ -82,63 +81,59 @@
     </v-container>
   
 </template>
+
 <script>
+import { mapState, mapActions,mapGetters } from 'vuex'
+
 export default {
+    
     layout:'login',
     submited:false,
     data(){
-        return {
-            contacto:{
-                correo:'pedro',
-                password:'123'
-            },
-            show1: false,
+        return{
+         email:'',
+         password:'',
+         show1: false,
             rules: {
             required: value => !!value || 'Required.',
-            min: v => v.length >= 8 || 'Min 8 characters',
-            emailMatch: () => (`The email and password you entered don't match`),
-        },
+            }
         }
+    },
+    created(){
+        
     },
     computed: {
         posts() {
             return this.$store.getters['posts/getPosts']
-        }
+             
+        },
+        login(){
+            return this.$store.getters['posts/getPosts']
+        },
+        ...mapGetters({
+            usuario:'user/getEmail'
+        }),
+        ...mapActions( {
+                login:'user/inicioSesion'
+        }),
     },
     methods:{
-        procesar(){
-            this.submited;
-            this.$v.$touch();
-            if(this.$v.$invalid){
-                return false;
-            }
-            let config ={
-                headers:{
-                    "Content-type":"aplicacion/json",
-                },
-            };
-            axios
-            .posts(Global.url+'login',parametros,config)
-            .then((response)=>{
-                if(response.status==200){
-                    console.log(response);
-                    this.flashMessage.Show({status:'success',title:'Mi aplicacion',message:'exito'})
-                    localStorage.setItem('token_token',response.data.token);
-                    localStorage.setItem('token_nombre',response.nombre);
-                    this.$router.push('/lead')
+       
+        
+        LoguearUsuario() {
+                let email = this.email
+                let password = this.password
+                if(email != "" && password != "") {
+                    this.$store.dispatch('user/inicioSesion', { email, password });
+                }else{
+                    alert('Llena los campos');
                 }
-            {
-                
-            }
-            });
         }
-    },
-    
+    }
 }
 </script>
-<style scoped>
-    .contenedor{
-        background: #262d3c !important;
-    }
-    
+<style lang="scss" scoped>
+.contenedor{
+    background: $colorPrincipal;
+}
 </style>

@@ -111,7 +111,7 @@
                   text
                   class=" text-capitalize  transparent"
                   block
-                  to="/login"
+                  @click="CerrarSesion"
                 >
                   Cerrar sesion
                 </v-btn>
@@ -178,6 +178,11 @@
           required:'true',
           default:'Sin telefono'
         },
+    },
+    methods:{
+      CerrarSesion() {
+          this.$store.dispatch('user/cerrarSesion');
+      }
     }
   }
 </script>

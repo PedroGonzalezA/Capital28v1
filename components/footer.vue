@@ -2,7 +2,7 @@
     <v-footer
       :absolute="!fixed"
       app
-      color="#262d3c"
+      class="footer"
       dark
     >
       <span>&copy; {{ new Date().getFullYear() }}</span>
@@ -17,3 +17,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.footer{
+  background: $colorPrincipal;
+}
+</style>

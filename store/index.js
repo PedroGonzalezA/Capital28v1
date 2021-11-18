@@ -9,10 +9,8 @@ export const getters={
 }
 
 export const actions ={
-    async nuxtServerInit({dispatch},context){
-        await dispatch('posts/loadPosts');
-    },
-
+    
+   
     false({commit}){
         commit(false)
     }

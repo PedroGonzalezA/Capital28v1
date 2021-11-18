@@ -2,10 +2,138 @@
   <v-expansion-panels>
     <v-expansion-panel disabled>
       <v-expansion-panel-header>
-        <template v-slot:default="{ open }">
+        <template>
           <v-row no-gutters>
             <v-col cols="4">
               INFORMACION
+            </v-col>
+            
+          </v-row>
+        </template>
+      </v-expansion-panel-header>
+
+      <v-expansion-panel-content>
+        
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+    <v-expansion-panel>
+      <v-expansion-panel-header>
+        <v-row no-gutters>
+          <v-col cols="4">
+            IMAGENES Y GALERIAS
+          </v-col>
+        </v-row>
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        <v-row no-gutters>
+          <v-spacer></v-spacer>
+          <v-col cols="12">
+              <div>
+                Capital28 utiliza Cloudinary para un mejor control y experiencia de imágenes, por lo que es necesario que se cree una cuenta y llene los siguientes campos.
+              </div>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              placeholder="Cloud Name"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              placeholder="API Key"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              placeholder="API Secret"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              placeholder="API Environment variable"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col
+            cols="6"
+          >
+            <v-btn
+              color="primary"
+            >
+              Guardar
+            </v-btn>
+          </v-col>
+
+          <v-col
+            cols="6"
+          >
+            <v-btn
+              color="primary"
+            >
+              REGISTRARE EN CLOUDINARY
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+    <v-expansion-panel>
+      <v-expansion-panel-header>
+        <v-row no-gutters>
+          <v-col cols="4">
+            AGREGAR PROPIEDADES
+          </v-col>
+
+        </v-row>
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        <v-row
+          justify="space-around"
+          no-gutters
+        >
+            <v-container>
+                <h4>Importar propiedades con excel</h4>
+                <div>
+                    <v-row no-gutters align="center" justify="center">
+                        <v-col class="10">
+                            <v-file-input
+                                multiple
+                                label="Seleccionar archivo"
+                            ></v-file-input>
+                        </v-col>
+                        <v-col cols="2" class="pl-2" >
+                            <v-btn small dark >
+                                Upload
+                                <v-icon right>
+                                    mdi-cloud-upload
+                                </v-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </div>
+            </v-container>
+            
+        </v-row>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+    <v-expansion-panel disabled>
+      <v-expansion-panel-header>
+        <template v-slot:default="{ open }">
+          <v-row no-gutters>
+            <v-col cols="4">
+              COTIZADOR
             </v-col>
             <v-col
               cols="8"
@@ -18,12 +146,7 @@
                 >
                   Enter a name for the trip
                 </span>
-                <span
-                  v-else
-                  key="1"
-                >
-                  {{ trip.name }}
-                </span>
+                
               </v-fade-transition>
             </v-col>
           </v-row>
@@ -38,11 +161,141 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
-    <v-expansion-panel>
+     <v-expansion-panel>
+      <v-expansion-panel-header >
+        <v-row no-gutters>
+          <v-col cols="4">
+            REGLAS DE PRECIOS
+          </v-col>
+        </v-row>
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        <v-row no-gutters>
+          <v-spacer></v-spacer>
+          <v-col cols="6" class="pa-3">
+            
+            <v-select
+              v-model="trip.location"
+              :items="locations"
+              prepend-icon="mdi-home-modern"
+              placeholder="Propiedades"
+              chips
+              flat
+              
+            ></v-select>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            <v-select
+              v-model="trip.location"
+              :items="locations"
+              placeholder="Tipo de contrato"
+              chips
+              flat
+            ></v-select>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            <v-text-field
+              placeholder="Descripcion"
+              chips
+              flat
+            >
+
+            </v-text-field>
+            
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            <v-select
+              v-model="trip.location"
+              :items="locations"
+              placeholder="Elije tu forma de pago"
+              chips
+              flat
+            ></v-select>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            
+            <v-text-field
+              placeholder="Enganche"
+              prepend-icon="mdi-percent-outline"
+              type="number"
+              chips
+              flat
+            >
+
+            </v-text-field>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            
+            <v-text-field
+              placeholder="Reserva"
+              prepend-icon="mdi-currency-usd"              
+              type="number"
+              chips
+              flat
+            >
+
+            </v-text-field>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            <v-text-field
+              placeholder="Meses acordados"
+              prepend-icon="mdi-pound"              
+              type="number"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            <v-text-field
+              placeholder="Pagos mensuales"
+              prepend-icon="mdi-currency-usd"              
+              type="number"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+            <v-select
+              v-model="trip.location"
+              :items="locations"
+              placeholder="Elije el tipo de descuento"
+              chips
+              flat
+            ></v-select>
+          </v-col>
+          <v-col cols="6" class="pa-3">
+           
+            <v-text-field
+              placeholder="Descuento"
+              prepend-icon="mdi-currency-usd"              
+              type="number"
+              chips
+              flat
+            >
+            </v-text-field>
+          </v-col>
+          <v-col
+            cols="6"
+          >
+            <v-btn
+              color="primary"
+            >
+              Guardar
+            </v-btn>
+          </v-col>
+        </v-row>
+
+        
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+     <v-expansion-panel>
       <v-expansion-panel-header v-slot="{ open }">
         <v-row no-gutters>
           <v-col cols="4">
-            IMAGENES Y GALERIAS
+            ETIQUETAS DE SEO
           </v-col>
           <v-col
             cols="8"
@@ -53,13 +306,7 @@
                 v-if="open"
                 key="0"
               >
-                Select trip destination
-              </span>
-              <span
-                v-else
-                key="1"
-              >
-                {{ trip.location }}
+                Capital28 utiliza Cloudinary para un mejor control y experiencia de imágenes, por lo que es necesario que se cree una cuenta y llene los siguientes campos.
               </span>
             </v-fade-transition>
           </v-col>
@@ -108,125 +355,6 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
-    <v-expansion-panel>
-      <v-expansion-panel-header v-slot="{ open }">
-        <v-row no-gutters>
-          <v-col cols="4">
-            AGREGAR PROPIEDADES
-          </v-col>
-          <v-col
-            cols="8"
-            class="text--secondary"
-          >
-            <v-fade-transition leave-absolute>
-              <span v-if="open">When do you want to travel?</span>
-              <v-row
-                v-else
-                no-gutters
-                style="width: 100%"
-              >
-                <v-col cols="6">
-                  Start date: {{ trip.start || 'Not set' }}
-                </v-col>
-                <v-col cols="6">
-                  End date: {{ trip.end || 'Not set' }}
-                </v-col>
-              </v-row>
-            </v-fade-transition>
-          </v-col>
-        </v-row>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <v-row
-          justify="space-around"
-          no-gutters
-        >
-          <v-col cols="3">
-            <v-menu
-              ref="startMenu"
-              :close-on-content-click="false"
-              :return-value.sync="trip.start"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="trip.start"
-                  label="Start date"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="date"
-                no-title
-                scrollable
-              >
-                <v-spacer></v-spacer>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.startMenu.isActive = false"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.startMenu.save(date)"
-                >
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-
-          <v-col cols="3">
-            <v-menu
-              ref="endMenu"
-              :close-on-content-click="false"
-              :return-value.sync="trip.end"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="trip.end"
-                  label="End date"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="date"
-                no-title
-                scrollable
-              >
-                <v-spacer></v-spacer>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.endMenu.isActive = false"
-                >
-                  Cancelar
-                </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.endMenu.save(date)"
-                >
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-          </v-col>
-        </v-row>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
   </v-expansion-panels>
 </template>
 <script>
