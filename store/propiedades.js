@@ -4,6 +4,7 @@ export const state = () => ({
     infoPropiedades:[],
     searchWord: '',
     filteredCourses: null,
+    estado:true
 })
 
 // Actions
@@ -17,7 +18,8 @@ export const actions = {
   },
   async FILTERED_COURSES ({ commit }, serchWord) {
     commit('FILTERED_COURSES', serchWord)
-}
+  },
+  
   
 }
 
@@ -34,13 +36,18 @@ export const getters = {
     },
     getFilteredCourse (state) {
        return state.filteredCourses
-    }
+    },
+    
 }
 
 // Mutaciones
 export const mutations = {
+  
     setPropiedades(state,infoPropiedades) {
       state.infoPropiedades = infoPropiedades
+    },
+    setEstado(state) {
+      state.estado = !state.estado
     },
     FILTERED_COURSES (state, word) {
       if (!(word) || word === '{}') {
@@ -53,6 +60,6 @@ export const mutations = {
           return course.desarrollo.name.toLowerCase().includes(word)
         })
       }
-  },
+    },
     
 }

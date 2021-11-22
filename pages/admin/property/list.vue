@@ -24,7 +24,7 @@
                 lg="1"
               >
                   <v-switch
-                    
+                    v-model="estadoA"
                     label=""
                     class="pa-3"
                   ></v-switch>
@@ -63,7 +63,7 @@
   import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
-      
+      mostrarTodos:true
     }),
     methods:{
        ...mapActions('propiedades', {
@@ -99,6 +99,16 @@
           },
           set (value) {
             this.$store.dispatch('propiedades/FILTERED_COURSES', value)
+            
+          }
+        },
+        estadoA: {
+          get () {
+            return this.$store.state.estado
+          },
+          set (value) {
+            this.$store.dispatch('propiedades/ESTADO',this.mostrarTodos)
+            
           }
         }
         

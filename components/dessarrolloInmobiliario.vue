@@ -35,7 +35,7 @@
           </v-col>
           <v-col cols="12">
             <v-row no-gutters justify="center">
-               <div v-for=" dato in datosDessarrollo" :key="dato._id">
+               <div v-for=" dato in filteredCourses" :key="dato._id">
                     <CardsDessarrollo
                       :key="dato._id"
                       :img="dato.media.featured_image"
@@ -46,7 +46,7 @@
                       hastaUSA='item.hastaUSA'
                       desdeMXN='item.desdeMXN'
                       hastaMXN='item.hastaMXN'
-                      reveal.sync= false
+                      :reveal.sync= reveal
                     />
                   </div>
             </v-row>  
@@ -62,16 +62,17 @@ import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
       nuevaTarea:'',
+      reveal:false
     }),
     methods:{
       ...mapActions('dessarrolloInmobiliario', {
-            datosDessarrolloF: 'datosDessarrollo',
+          datosDessarrolloF: 'datosDessarrollo',
       }),
       crearDesarrolloF() {
-                let nombreDesarrollo= this.nuevaTarea;
-                let code= this.convertirTexto(this.nuevaTarea);
-                this.$store.dispatch('dessarrolloInmobiliario/crearDesarrollo', { code,nombreDesarrollo});
-                this.nuevaTarea='';
+        let nombreDesarrollo= this.nuevaTarea;
+        let code= this.convertirTexto(this.nuevaTarea);
+        this.$store.dispatch('dessarrolloInmobiliario/crearDesarrollo', { code,nombreDesarrollo});
+        this.nuevaTarea='';
       },
       convertirTexto(texto){
         let txtSinEspacio
@@ -89,7 +90,28 @@ import { mapState, mapActions,mapGetters } from 'vuex'
         ...mapGetters('dessarrolloInmobiliario', {
             datosDessarrollo: 'getDessarrollo',
             nuevoDessarrollo: 'getNuevoDessarrollo',
-        })
+            filtro: 'getFilteredCourse',
+            todos: 'allCourses',
+        }),
+        
+        filteredCourses() {
+            try {
+            let a = (this.filtro || this.todos)
+            console.log(a)
+            return a
+          } catch (e) {
+            console.log(e)
+          }
+        },
+        search: {
+          get () {
+            return this.$store.state.searchWord
+          },
+          set (value) {
+            this.$store.dispatch('dessarrolloInmobiliario/FILTERED_COURSES', value)
+            
+          }
+        }
         
     },
     
