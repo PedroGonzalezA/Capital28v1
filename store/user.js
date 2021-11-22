@@ -57,7 +57,6 @@ export const actions = {
       let { data } = await this.$axios.post('/user/getUserById');
       localStorage.setItem('ag',data.Data.contact.real_estate_group_id);
       localStorage.setItem('contact_id',data.Data.User.contact_id);
-      localStorage.setItem('contact_id',data.Data.User.contact_id);
       localStorage.setItem('user_image',data.Data.contact.media.featured_image.src);
       localStorage.setItem('real_estate_group_logo',data.Data.User.real_estate_group.media);
 

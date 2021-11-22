@@ -4,33 +4,50 @@
         <v-container fluid>
           <v-col cols="12">
             <v-row align="center" justify="center" >
-              <v-col cols="9" sm="7" md="9" lg="11">
-                  <v-text-field v-model="nuevaTarea" v-on:keyup.enter="agregarTarea" ></v-text-field>
+              <v-col cols="4">
+                  <v-text-field 
+                    label="Buscar"
+           
+                    clearable
+                    type="text"
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                  >
+                  
+                  </v-text-field>
               </v-col>
-              <v-col cols="3" sm="5" md="3" lg="1">
-                  <v-btn icon @click="agregarTarea"><v-icon>mdi-plus</v-icon></v-btn>
+              <v-col cols="3"></v-col>
+              <v-col cols="4" >
+                    <v-text-field 
+                        label="Nuevo desarrollo"
+                        clearable
+                        v-model="nuevaTarea" 
+                        v-on:keyup.enter="crearDesarrolloF" 
+                        :hint="'Codigo Generado: '+convertirTexto(nuevaTarea)"
+                    >
+                    </v-text-field>
+               
+              </v-col>
+              <v-col cols="1">
+                  <v-btn icon @click="crearDesarrolloF"><v-icon>mdi-plus</v-icon></v-btn>
               </v-col>
             </v-row>
           </v-col>
           <v-col cols="12">
             <v-row no-gutters justify="center">
-                <div  v-for='(item,Identificador) in tareas' :key="Identificador">
-                
-                          <CardsDessarrollo
-                              :key="Identificador"
-                              :id="Identificador"
-                              :img="item.img"
-                              :nombre="item.nombre"
-                              :direccion='item.direccion'
-                              :status='item.status'
-                              :desdeUSA='item.desdeUSA'
-                              :hastaUSA='item.hastaUSA'
-                              :desdeMXN='item.desdeMXN'
-                              :hastaMXN='item.hastaMXN'
-                              :reveal.sync="item.reveal"
-                
-                          />
-                  
+               <div v-for=" dato in datosDessarrollo" :key="dato._id">
+                    <CardsDessarrollo
+                      :key="dato._id"
+                      :img="dato.media.featured_image"
+                      :nombre="dato.name"
+                      :direccion='dato.address'
+                      :status='dato.development_status'
+                      desdeUSA='item.desdeUSA'
+                      hastaUSA='item.hastaUSA'
+                      desdeMXN='item.desdeMXN'
+                      hastaMXN='item.hastaMXN'
+                      reveal.sync= false
+                    />
                   </div>
             </v-row>  
           </v-col> 
@@ -41,133 +58,48 @@
   </v-row>
 </template>
 <script>
+import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
-      tareas:[
-         {
-              id:0,
-              nombre:'Test1 proyecto prueba',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$12,000,000 MXN',        
-              reveal: false, 
-              img:'https://res.cloudinary.com/capital28-investments/image/upload/v1570208235/Capital%2028/TheBoatOver.jpg'
-          },
-          {
-              id:1,
-              nombre:'Test2',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-              img:'https://res.cloudinary.com/capital28-investments/image/upload/v1570208235/Capital%2028/TheBoatOver.jpg'
-          },
-          {
-              id:2,
-              nombre:'Test3',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-              img:''
-          },
-          {
-              id:3,
-              nombre:'Test4',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-              img:''
-          },
-          {
-              id:4,
-              nombre:'Test5',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-              img:''
-          },
-          {
-              id:5,
-              nombre:'Test6',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-              img:''
-          },
-          {
-              id:6,
-              nombre:'Test7',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-              img:''
-          },
-      ],
       nuevaTarea:'',
     }),
     methods:{
-      agregarTarea: function(){
-        this.tareas.push({
-        id:this.id,
-        nombre:this.nuevaTarea,
-        direccion:'Sin dirrecion',
-        status:'Sin estado',
-        desdeUSA:'Vacio',
-        hastaUSA:'Vacio',
-        desdeMXN:'Vacio',
-        hastaMXN:'Vacio',
-        reveal:false,
-        img:'Vacio'
-      });
-        this.nuevaTarea='';
-        localStorage.setItem('componente',JSON.stringify(this.tareas));
+      ...mapActions('dessarrolloInmobiliario', {
+            datosDessarrolloF: 'datosDessarrollo',
+      }),
+      crearDesarrolloF() {
+                let nombreDesarrollo= this.nuevaTarea;
+                let code= this.convertirTexto(this.nuevaTarea);
+                this.$store.dispatch('dessarrolloInmobiliario/crearDesarrollo', { code,nombreDesarrollo});
+                this.nuevaTarea='';
+      },
+      convertirTexto(texto){
+        let txtSinEspacio
+        let txtSinEs=""
+        let textoMinuscula=texto.toLowerCase();
+        for (var i = 0; i < textoMinuscula.length; i++) {
+          txtSinEspacio = textoMinuscula[i].replace(' ', '-');
+          txtSinEs=txtSinEs+txtSinEspacio
+        }
+          return txtSinEs;
       }
     },
-  
+    
     computed: {
-        posts() {
-            return this.$store.getters['posts/getPosts']
-        },
+        ...mapGetters('dessarrolloInmobiliario', {
+            datosDessarrollo: 'getDessarrollo',
+            nuevoDessarrollo: 'getNuevoDessarrollo',
+        })
         
     },
     
     mounted() {
-      let datos =JSON.parse(localStorage.getItem('componente'));
-      this.tareas=datos;
-  },
-  watch: {
-  
-  }
+      this.datosDessarrolloF();
+    },
+ 
    
   }
 </script>
-
 <style>
 
 </style>

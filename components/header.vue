@@ -33,8 +33,6 @@
           totalLeads=2
           leadsActivos=2
           :tipoUsuario="datosHeaderUser.role"
-          :fechaRegistro="datosHeaderContactRealEstateGroup"
-          :ultimaActualizacion="datosHeaderContactRealEstateGroup"
           :telefono="datosHeaderContact.phone"
         />
         
@@ -152,6 +150,7 @@ export default {
         this.CerrarSesion
     },
     ...mapActions('user', {
+            datosToken: 'tokenP',
             CerrarSesion: 'cerrarSesion',
     }),
     ...mapActions('datos', {
@@ -160,6 +159,7 @@ export default {
   },
   mounted(){
       this.datosHeaderUserF();
+      this.datosToken();
       let imagen = localStorage.getItem('user_image');  
       this.imagenUser= imagen;   
   }

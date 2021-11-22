@@ -28,7 +28,7 @@
                   :color="getColor(status)"
                   dark
                 >
-                  {{status}}
+                  {{getName(status)}}
                 </v-chip>
               </div>
             </v-col>
@@ -126,14 +126,9 @@
 <script>
   export default {
     props:{
-        id: {
-          type: Number,
-          required:true,
-          default:0
-        },
         img: {
-          type: String,
-          default:'Sin img',
+          type: Object,
+          default: () => ({}),
           required:'true',
         },
         nombre: {
@@ -142,14 +137,14 @@
           required:'true',
         },
         direccion: {
-          type: String,
-          default:'Sin dirreccion',
+          type: Object,
+          default: () => ({}),
           required:'true',
         },
         status: {
-          type: String,
+          type: Object,
           required:'true',
-          default:'Sin status'
+          default: () => ({})
         },
         hastaUSA: {
           type: String,
@@ -189,11 +184,15 @@
     },
     methods: {
       getColor (dato) {
-        if (dato == 'EN OBRA') return 'orange'
-        else if (dato == '') return ''
+        if (dato == 'construction') return 'orange'
+        else if (dato == '') return 'black'
         else return 'black'
       },
-     
+      getName (dato) {
+        if (dato == 'construction') return 'EN OBRA'
+        else if (dato == '') return ''
+        else return ''
+      },
     },
   }
 </script>

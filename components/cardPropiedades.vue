@@ -13,94 +13,60 @@
     >
       <v-card-title  >
         <v-row>
-          <v-col cols="4" class="white--text">
+          <v-col cols="4" class="white--text py-1">
             {{id}}
           </v-col>
-          <v-col cols="8"  class="white--text">
+          <v-col cols="8"  class="white--text py-1">
             {{nombreDessarrollo}}
           </v-col>
         </v-row>
       </v-card-title>
 
-      <v-card-text class="pa-0">
+      <v-card-text class="pa-0 textoCard">
         <v-container fluid>
-          <v-row align="center" justify="center">
-            <v-col cols="8" class="pa-2">
+          <v-row align="center" justify="center" class="textoCard">
+            <v-col cols="7" class="pa-2 py-1">
               <div class="white--text">
-               Precio: {{precio}} 
+               <v-icon>mdi-cash</v-icon> ${{precio}}{{tipoMoneda}}
               </div>
               
             </v-col>
-            <v-col cols="4" class="pa-2">
+            <v-col cols="5" class="pa-2 py-1">
               <v-chip
                 :color="getColor(status)"
                 dark
                 label
               >
-                {{status}}
+                {{getName(status)}}
               </v-chip>
+            </v-col>
+            <v-col cols="7" class="pa-2 py-1">
+                  <div>
+                    <strong>Planta: </strong>{{planta}} 
+                  </div>
+            </v-col>
+            <v-col cols="5" class="pa-2 py-1">
+                  <div>
+                    <strong>Recamaras: </strong>{{recamaras}} 
+                  </div>
+            </v-col>
+
+            <v-col cols="6" class="pa-2 py-1">
+                  <strong>Baños: </strong>{{banos}}
+            </v-col>
+            <v-col cols="6" class="pa-2 py-1">
+                <div><strong>TDP: </strong>{{tdp}}</div>  
+            </v-col>
+            
+            <v-col cols="4" class="pa-2 py-1"> 
+                <div><strong>M2: </strong>{{m2}} m2</div>
+            </v-col>
+            <v-col cols="8" class="pa-2 py-1">
+                <div><strong>Precio X M2: </strong>{{precioxm2}}</div>
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
-
-      <v-card-actions >
-        <v-btn
-          color="white"
-          icon
-        >
-          <v-icon>
-            mdi-playlist-edit
-          </v-icon>
-        </v-btn>
-
-        <v-spacer></v-spacer>
-
-        <v-btn
-          icon
-          @click="show = !show"
-          color="white"
-        >
-          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-        </v-btn>
-      </v-card-actions>
-                      
-      <v-expand-transition>
-        <div v-show="show">
-          <v-divider></v-divider>
-          
-          <v-card-text style="background:white;" >
-            <v-row align="center" justify="center">
-              <v-col cols="12" class="pa-1">
-                  <h3>DETALLES</h3>
-              </v-col>
-              <v-col cols="6" class="pa-1">
-                  <div>
-                    <strong>Recamaras: </strong>{{recamaras}} 
-                  </div>
-              </v-col>
-              <v-col cols="6" class="pa-1">
-                  <strong>Baños: </strong>{{banos}}
-              </v-col>
-              <v-col cols="6" class="pa-1">
-                  <div>
-                    <strong>Planta: </strong>{{planta}} 
-                  </div>
-              </v-col>
-
-              <v-col cols="6" class="pa-1">
-                <div><strong>TDP: </strong>{{tdp}}</div>  
-              </v-col>
-              <v-col cols="6" class="pa-1"> 
-                <div><strong>M2: </strong>{{m2}}</div>
-              </v-col>
-              <v-col cols="6" class="pa-1">
-                <div><strong>Precio X M2: </strong>{{precioxm2}}</div>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </div>
-      </v-expand-transition>
     </v-card>
   </v-col>
 </template>
@@ -119,9 +85,14 @@
           required:'true',
         },
         precio: {
-          type: String,
+          type: Number,
           default:'Sin precio',
           required:'true',
+        },
+        tipoMoneda: {
+          type: String,
+          required:'true',
+          default:'Sin Moneda'
         },
         status: {
           type: String,
@@ -149,7 +120,7 @@
           default:'Sin desdeMXN'
         },
         m2: {
-          type: String,
+          type: Number,
           required:'true',
           default:'Sin desdeMXN'
         },
@@ -168,13 +139,6 @@
           required:'true',
           default:'Sin desdeMXN'
         },
-        reveal: {
-          type: Boolean,
-          required:'true',
-          default(){
-            return false
-          }
-        },
 
         
     },
@@ -188,11 +152,16 @@
     },
     methods: {
       getColor (dato) {
-        if (dato == 'EN OBRA') return 'yellow'
-        else if (dato == '') return ''
-        else return 'green'
+        if (dato == 'disponible') return '#70C879'
+        else if (dato == 'reservado') return 'yellow'
+        else return '#D22424'
       },
-        save () {
+      getName (dato) {
+        if (dato == 'disponible') return 'DISPONIBLE'
+        else if (dato == 'reservado') return 'RESERVADO'
+        else return 'VENDIDO'
+      },
+      save () {
         this.snack = true
         this.snackColor = 'success'
         this.snackText = 'Dato cambiado'
@@ -231,6 +200,9 @@
   }
   .titulo{
     background:$colorAzulB;
-    color:black;
+    color: white;
+  }
+  .textoCard{
+    color: white;
   }
 </style>>

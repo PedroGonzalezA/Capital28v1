@@ -74,71 +74,76 @@
                                <v-col
                                 cols="12"
                                 >
-                                <div>
-                                    <h4>
-                                        Usuario:
-                                    </h4>
-                                </div>
-                                <v-row
-                                align="start"
-                                justify="start"
-                                >
-                                    <v-col
-                                    cols="12"
-                                    class="py-2 px-5"
-                                    >
-                                        <div>
-                                            {{tipoUsuario}}
-                                        </div>
-                                    </v-col>
-                                </v-row>
+                                  <div>
+                                      <h4>
+                                          Usuario:
+                                      </h4>
+                                  </div>
+                                  <v-row
+                                  align="start"
+                                  justify="start"
+                                  >
+                                      <v-col
+                                      cols="12"
+                                      class="py-2 px-5"
+                                      >
+                                          <div>
+                                              {{tipoUsuario}}
+                                          </div>
+                                      </v-col>
+                                  </v-row>
                                 </v-col>
+                              <v-col cols="12">
+                                  <v-row v-for="dato in datosHeaderContactRealEstateGroup" :key="dato._id">
+                                    <v-col
+                                      cols="12"
+                                    >
+                                      <div>
+                                          <h4>
+                                              Fecha de registro:
+                                          </h4>
+                                      </div>
+                                      <v-row
+                                      align="start"
+                                      justify="start"
+                                      >
+                                          <v-col
+                                          cols="12"
+                                          class="py-2 px-5"
+                                          >
+                                              <div>
+                                                  {{dato.created_at}}
+                                              </div>
+                                          </v-col>
+                                      </v-row>
+                                    </v-col>
 
-                                <v-col
-                                cols="12"
-                                >
-                                <div>
-                                    <h4>
-                                        Fecha de registro:
-                                    </h4>
-                                </div>
-                                <v-row
-                                align="start"
-                                justify="start"
-                                >
                                     <v-col
-                                    cols="12"
-                                    class="py-2 px-5"
+                                      cols="12"
                                     >
-                                        <div>
-                                            {{fechaRegistro}}
-                                        </div>
+                                      <div>
+                                          <h4>
+                                              Ultima Actualizacion:
+                                          </h4>
+                                      </div>
+                                      <v-row
+                                      align="start"
+                                      justify="start"
+                                      >
+                                          <v-col
+                                          cols="12"
+                                          class="py-2 px-5"
+                                          >
+                                              <div>
+                                                  {{dato.updated_at}}
+                                              </div>
+                                          </v-col>
+                                      </v-row>
                                     </v-col>
-                                </v-row>
-                                </v-col>
-
-                                <v-col
-                                cols="12"
-                                >
-                                <div>
-                                    <h4>
-                                        Ultima Actualizacion:
-                                    </h4>
-                                </div>
-                                <v-row
-                                align="start"
-                                justify="start"
-                                >
-                                    <v-col
-                                    cols="12"
-                                    class="py-2 px-5"
-                                    >
-                                        <div>
-                                            {{ultimaActualizacion}}
-                                        </div>
-                                    </v-col>
-                                </v-row>
-                                </v-col>
+                                  </v-row>
+                              </v-col>
+                              
+                              
                             </v-row>    
                         </v-container>
                         
@@ -224,6 +229,7 @@
     </v-dialog>
 </template>
 <script>
+  import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
@@ -255,21 +261,24 @@
           required:'true',
           default:'Sin usuario'
         },
-        fechaRegistro: {
-          type: String,
-          required:'true',
-          default:'Sin fecha de registro'
-        },
-        ultimaActualizacion: {
-          type: String,
-          required:'true',
-          default:'Sin ultima actualizacion'
-        },
         telefono: {
           type: String,
           required:'true',
           default:'Sin telefono'
         },
+    },
+    computed:{
+    ...mapGetters('datos', {
+            datosHeaderContactRealEstateGroup: 'getDatosHeaderContactRealEstateGroup',
+        })
+    },
+    methods:{
+      ...mapActions('datos', {
+              datosHeaderUserF: 'datosHeaderUser',
+      })
+    },
+    mounted(){
+        this.datosHeaderUserF();
     }
   }
 </script>

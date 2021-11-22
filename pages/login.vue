@@ -54,6 +54,7 @@
                                                     :type="show1 ? 'text' : 'password'"
                                                     name="input-10-1"
                                                     label="Contraseña"
+                                                    v-on:keyup.enter="LoguearUsuario" 
                                                     @click:append="show1 = !show1"
                                                 ></v-text-field>
                                         </v-card-text>
@@ -99,24 +100,7 @@ export default {
             }
         }
     },
-    created(){
-        
-    },
-    computed: {
-        posts() {
-            return this.$store.getters['posts/getPosts']
-             
-        },
-        login(){
-            return this.$store.getters['posts/getPosts']
-        },
-        ...mapGetters({
-            usuario:'user/getEmail'
-        }),
-        ...mapActions( {
-                login:'user/inicioSesion'
-        }),
-    },
+
     methods:{
        
         

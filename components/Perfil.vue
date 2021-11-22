@@ -96,8 +96,6 @@
                         :email="email"
                         :fullName="fullName"
                         :tipoUsuario="tipoUsuario"
-                        :fechaRegistro="fechaRegistro"
-                        :ultimaActualizacion="ultimaActualizacion"
                         :telefono="telefono"
                       />
               </v-list-item-title>
@@ -149,12 +147,12 @@
           default:'Sin email'
         },
         totalLeads: {
-          type: Number,
+          type: String,
           required:'true',
           default:'Sin total leads'
         },
         leadsActivos: {
-          type: Number,
+          type: String,
           required:'true',
           default:'Sin leads activos'
         },
@@ -162,16 +160,6 @@
           type: String,
           required:'true',
           default:'Sin usuario'
-        },
-        fechaRegistro: {
-          type: String,
-          required:'true',
-          default:'Sin fecha de registro'
-        },
-        ultimaActualizacion: {
-          type: String,
-          required:'true',
-          default:'Sin ultima actualizacion'
         },
         telefono: {
           type: String,

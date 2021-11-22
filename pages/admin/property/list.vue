@@ -23,117 +23,90 @@
                 md="1"
                 lg="1"
               >
-                <v-btn icon>
-                  <v-icon>mdi-tune</v-icon>      
-                </v-btn>
+                  <v-switch
+                    
+                    label=""
+                    class="pa-3"
+                  ></v-switch>
               </v-col>
             </v-row>
          </v-col>
-
           <v-col cols="12">
-            <v-row no-gutters justify="center">
-                <div  v-for='item in tareas' :key="item.id" >
+            <v-row no-gutters justify="center" >
+                <div  v-for='item in filteredCourses' :key="item._id">
                 
                           <CardPropiedades 
                               
-                              :id="item.id"
-                              :nombreDessarrollo="item.nombreDessarrollo"
-                              :precio='item.precio'
-                              :status='item.status'
-                              :recamaras='item.recamaras'
-                              :banos='item.banos'
-                              :planta='item.planta'
-                              :tdp='item.tdp'
-                              :m2='item.m2'
-                              :precioxm2='item.precioxm2'
-                              :construccion='item.construccion'
-                              :terraza='item.terraza'
-                              :reveal.sync="item.reveal"
-                
+                              :id="item.code"
+                              :nombreDessarrollo="item.desarrollo.name"
+                              :tipoMoneda='item.pricing.currency'
+                              :precio='item.pricing.price'
+                              :status='item.contract_status'
+                              :recamaras='item.features.rooms'
+                              :banos='item.features.bathrooms'
+                              :planta='item.floor.name'
+                              :tdp='item.building.type'
+                              :m2='item.building.total'
+                              precioxm2='item.precioxm2'
+                              :construccion='item.construction'
+                              :terraza='item.terrace'                
                           />
                   
                   </div>
+                  
             </v-row>  
           </v-col>           
     </v-col>
   </v-row>
 </template>
 <script>
+  import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
-      search:'',
-      tareas:[
-        {
-          id:'L-110',
-          status:'Disponible',
-          nombreDessarrollo:'Prueba test 1',
-          precio:'$1,000,000 MXN',
-          recamaras: '1',
-          banos: '2',
-          planta:'Planta Baja',
-          tdp:'A',
-          m2:'34m2',
-          precioxm2:'$2,500 USD m2',
-          construccion:'90',
-          terraza:'4',
-          reveal:false,
-        },
-        {
-          id:'L-111',
-          status:'Disponible',
-          nombreDessarrollo:'prueba1',
-          precio:'$300,000 MXN',
-          recamaras: '1',
-          banos: '2',
-          planta:'Planta Baja',
-          tdp:'A',
-          m2:'34m2',
-          precioxm2:'$2,500 USD m2',
-          construccion:'90',
-          terraza:'4',
-          reveal:false
-        },
-         {
-          id:'L-112',
-          status:'Disponible',
-          nombreDessarrollo:'prueba2',
-          precio:'$400,000 MXN',
-          recamaras: '1',
-          banos: '2',
-          planta:'Planta Baja',
-          tdp:'A',
-          m2:'34m2',
-          precioxm2:'$2,500 USD m2',
-          construccion:'90',
-          terraza:'4',
-          reveal:false
-        },
-         {
-          id:'L-113',
-          status:'Disponible',
-          nombreDessarrollo:'prueba3',
-          precio:'$400,000 MXN',
-          recamaras: '1',
-          banos: '2',
-          planta:'Planta Baja',
-          tdp:'A',
-          m2:'34m2',
-          precioxm2:'$2,500 USD m2',
-          construccion:'90',
-          terraza:'4',
-          reveal:false
-        }
-      ],
-      nuevaTarea:'',
-      reveal:false,
+      
     }),
     methods:{
+       ...mapActions('propiedades', {
+            datosPropiedadesF: 'datosPropiedades',
+      }),
       
+      getEstado (dato) {
+        if (dato == 'disponible') return 'DISPONIBLE'
+        else if (dato == 'reservado') return 'RESERVADO'
+        else return 'VENDIDO'
+      },
     },
   
     computed: {
+        ...mapGetters('propiedades', {
+            datosPropiedades: 'getPropiedades',
+            filtro: 'getFilteredCourse',
+            todos: 'allCourses',
+        }),
         
-    }
+        filteredCourses() {
+            try {
+            let a = (this.filtro || this.todos)
+            console.log(a)
+            return a
+          } catch (e) {
+            console.log(e)
+          }
+        },
+        search: {
+          get () {
+            return this.$store.state.searchWord
+          },
+          set (value) {
+            this.$store.dispatch('propiedades/FILTERED_COURSES', value)
+          }
+        }
+        
+    },
+    
+    mounted() {
+      this.datosPropiedadesF();
+    },
    
   }
 </script>
