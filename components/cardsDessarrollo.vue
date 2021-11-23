@@ -8,21 +8,28 @@
     >
       <v-card
         class="mx-auto cardNuevo"
-        max-width="344"      
+        max-width="440"      
         height="241px"
       >
-        <div class="imagenCard">
-          <v-img v-bind:src='imagen' class="imagenCard"></v-img>
-        </div>
+          
+            <div class="imagenCardDiv">
+              <v-img v-bind:src='imagen' class="imagenCard"></v-img>
+              <div>
+                hola
+              </div>
+            </div>
+            
+        
         <v-card-text class="text-center" >
           <v-row align="center">
-            <v-col cols="8" class="paddingCol">
+
+            <v-col cols="6" class="paddingCol">
               <div class=" text--primary">
                 <strong>{{nombre}}</strong>
               </div>
             </v-col>
             
-            <v-col cols="4" class="paddingCol">
+            <v-col cols="6" class="paddingCol">
               <div>
                 <v-chip
                   :color="getColor(status)"
@@ -32,6 +39,7 @@
                 </v-chip>
               </div>
             </v-col>
+
           </v-row>
         </v-card-text>
         <v-card-actions class="pa-0">
@@ -41,11 +49,11 @@
             class=" text-capitalize  transparent boton"
             block
             dark
-            @click="$emit('update:reveal',!reveal)"
+            :to="'/admin/real-estate-development/edit/'+nombre"          
           >
               <v-icon>
-                  mdi-chevron-up
-                </v-icon>
+                 mdi-playlist-edit
+              </v-icon>
           </v-btn>
         </v-card-actions>
 
@@ -166,15 +174,6 @@
           required:'true',
           default:'Sin desdeMXN'
         },
-        reveal: {
-          type: Boolean,
-          required:'true',
-          default(){
-            return false
-          }
-        },
-
-        
     },
     data() {
       return{
@@ -211,7 +210,7 @@
   max-height: 44px;
 }
 .cardNuevo{
-  width: 300px;
+  width: 400px;
 }
 
 .paddingCol{
@@ -229,9 +228,12 @@
   background: $colorAzulB;
 }
 .imagenCard{
-  height:165px;
-  width:300px;
+  height:145px;
+  width:280px;
   border-radius: 5px 5px 0 0;
+}
+.imagenCardDiv{
+  width:280px;
 }
 .datos{
   height: 170px;

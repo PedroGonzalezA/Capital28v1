@@ -46,7 +46,6 @@
                       hastaUSA='item.hastaUSA'
                       desdeMXN='item.desdeMXN'
                       hastaMXN='item.hastaMXN'
-                      :reveal.sync= reveal
                     />
                   </div>
             </v-row>  
@@ -62,7 +61,6 @@ import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
       nuevaTarea:'',
-      reveal:false
     }),
     methods:{
       ...mapActions('dessarrolloInmobiliario', {
@@ -92,6 +90,8 @@ import { mapState, mapActions,mapGetters } from 'vuex'
             nuevoDessarrollo: 'getNuevoDessarrollo',
             filtro: 'getFilteredCourse',
             todos: 'allCourses',
+            nombre:'getSearchWord',
+            estado:'getEstado'
         }),
         
         filteredCourses() {
@@ -105,13 +105,13 @@ import { mapState, mapActions,mapGetters } from 'vuex'
         },
         search: {
           get () {
-            return this.$store.state.searchWord
+            return this.nombre
           },
           set (value) {
             this.$store.dispatch('dessarrolloInmobiliario/FILTERED_COURSES', value)
             
           }
-        }
+        },
         
     },
     

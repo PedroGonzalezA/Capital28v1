@@ -8,24 +8,25 @@
                 cols="10"
                 sm="11"
                 md="11"
-                lg="11"
+                lg="10"
               >
                 <v-text-field
                   v-model="search"
                   append-icon="mdi-magnify"
                   label="Buscar"
                   hide-details
+                  clearable
                  ></v-text-field>
               </v-col>
               <v-col
                 cols="2"
                 sm="1"
                 md="1"
-                lg="1"
+                lg="2"
               >
                   <v-switch
                     v-model="estadoA"
-                    label=""
+                    label=" Solo Disponibles"
                     class="pa-3"
                   ></v-switch>
               </v-col>
@@ -63,7 +64,6 @@
   import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
-      mostrarTodos:true
     }),
     methods:{
        ...mapActions('propiedades', {
@@ -82,6 +82,8 @@
             datosPropiedades: 'getPropiedades',
             filtro: 'getFilteredCourse',
             todos: 'allCourses',
+            estado:'getEstado',
+            searchW:'getSearchWord'
         }),
         
         filteredCourses() {
@@ -95,7 +97,7 @@
         },
         search: {
           get () {
-            return this.$store.state.searchWord
+            return this.searchW
           },
           set (value) {
             this.$store.dispatch('propiedades/FILTERED_COURSES', value)
@@ -104,11 +106,10 @@
         },
         estadoA: {
           get () {
-            return this.$store.state.estado
+            return this.estado
           },
           set (value) {
-            this.$store.dispatch('propiedades/ESTADO',this.mostrarTodos)
-            
+            this.$store.dispatch('propiedades/ESTADO',value)
           }
         }
         

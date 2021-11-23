@@ -6,7 +6,7 @@ export const state = () => ({
     nombreDesarrollo:null,
     searchWord: '',
     filteredCourses: null,
-    reveal:true
+
 })
 
 // Actions
@@ -31,9 +31,7 @@ export const actions = {
   },
   async FILTERED_COURSES ({ commit }, serchWord) {
     commit('FILTERED_COURSES', serchWord)
-  }
- 
-  
+  },
 }
 
 // Getters
@@ -53,8 +51,7 @@ export const getters = {
     },
     getFilteredCourse (state) {
        return state.filteredCourses
-    }
-  
+    },
 }
 
 // Mutaciones
