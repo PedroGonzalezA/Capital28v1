@@ -14,10 +14,20 @@
       <v-card-title  >
         <v-row>
           <v-col cols="4" class="white--text py-1">
-            {{id}}
+            {{code}}
           </v-col>
           <v-col cols="8"  class="white--text py-1">
-            {{nombreDessarrollo}}
+            <DialogoPropiedades
+              :id="id"
+              :nombre="nombreDessarrollo"
+              :precio.sync="precio"
+              :recamaras="recamaras"
+              :cordenadas="cordenadas"
+              :banos="banos"
+              :TDP="tdp"
+              :m2="m2"
+              :estado="status"
+            />
           </v-col>
         </v-row>
       </v-card-title>
@@ -27,12 +37,6 @@
           <v-row align="center" justify="center" class="textoCard">
             <v-col cols="7" class="pa-2 py-1">
               <div class="white--text">
-                <v-text-field
-                  v-model="precio"
-                  prepend-inner-icon="mdi-cash"
-                >
-                </v-text-field>
-                {{tipoMoneda}}
                <v-icon>mdi-cash</v-icon> ${{precio}}{{tipoMoneda}}
               </div>
               
@@ -65,7 +69,7 @@
             </v-col>
             
             <v-col cols="4" class="pa-2 py-1"> 
-                <div><strong>M2: </strong>{{m2}} m2</div>
+                <div><strong>M2: </strong>{{m2.total}} m2</div>
             </v-col>
             <v-col cols="8" class="pa-2 py-1">
                 <div><strong>Precio X M2: </strong>{{precioxm2}}</div>
@@ -81,44 +85,31 @@
   export default {
     props:{
         id: {
-          type: String,
-          required:'true',
-          default:'0'
+          type: String,required:'true',default:'0'
+        },
+        code: {
+          type: String,required:'true',default:'0'
         },
         nombreDessarrollo: {
-          type: String,
-          default:'Sin nombre',
-          required:'true',
+          type: String,default:'Sin nombre',required:'true',
         },
         precio: {
-          type: Number,
-          default:'Sin precio',
-          required:'true',
+          type: Number,required:'true',default(){return}
         },
         tipoMoneda: {
-          type: String,
-          required:'true',
-          default:'Sin Moneda'
+          type: String,default:'Sin Moneda',required:'true',
         },
         status: {
-          type: String,
-          required:'true',
-          default:'Sin status'
+          type: String,required:'true',default:'Sin status'
         },
         recamaras: {
-          type: String,
-          required:'true',
-          default:'Sin recamaras'
+          type: String,required:'true',default:'Sin recamaras'
         },
         banos: {
-          type: String,
-          required:'true',
-          default:'Sin desdeUSA'
+          type: String,required:'true',default:'Sin desdeUSA'
         },
         planta: {
-          type: String,
-          required:'true',
-          default:'Sin hastaMXN'
+          type: String,required:'true',default:'Sin hastaMXN'
         },
         tdp: {
           type: String,
@@ -126,9 +117,12 @@
           default:'Sin desdeMXN'
         },
         m2: {
-          type: Number,
+          type: Object,
           required:'true',
-          default:'Sin desdeMXN'
+          default: () => ({})
+        },
+        cordenadas: {
+          type: Object, required:'true',default:() => ({})
         },
         precioxm2: {
           type: String,
@@ -155,6 +149,9 @@
        
       }
     },
+     mounted() {
+      this.$emit('update:precio',this.precio)
+    },
     methods: {
       getColor (dato) {
         if (dato == 'disponible') return '#70C879'
@@ -166,24 +163,7 @@
         else if (dato == 'reservado') return 'RESERVADO'
         else return 'VENDIDO'
       },
-      save () {
-        this.snack = true
-        this.snackColor = 'success'
-        this.snackText = 'Dato cambiado'
-      },
-      cancel () {
-        this.snack = true
-        this.snackColor = 'error'
-        this.snackText = 'Cancelado'
-      },
-      open () {
-        this.snack = true
-        this.snackColor = 'info'
-        this.snackText = 'Dialogo abierto'
-      },
-      close () {
-        console.log('Dialog cerrado')
-      },
+    
     },
   }
 </script>

@@ -37,17 +37,18 @@
                 <div  v-for='item in filteredCourses' :key="item._id">
                 
                           <CardPropiedades 
-                              
-                              :id="item.code"
+                              :id='item._id'
+                              :code="item.code"
+                              :cordenadas="item.miscellaneous"
                               :nombreDessarrollo="item.desarrollo.name"
                               :tipoMoneda='item.pricing.currency'
-                              :precio='item.pricing.price'
+                              :precio.sync='item.pricing.price'
                               :status='item.contract_status'
                               :recamaras='item.features.rooms'
                               :banos='item.features.bathrooms'
                               :planta='item.floor.name'
                               :tdp='item.building.type'
-                              :m2='item.building.total'
+                              :m2='item.building'
                               precioxm2='item.precioxm2'
                               :construccion='item.construction'
                               :terraza='item.terrace'                

@@ -2,6 +2,7 @@
 // State
 export const state = () => ({
     infoPropiedades:[],
+    cambioPropiedades:[],
     searchWord: '',
     filteredCourses: null,
     estado:true,
@@ -27,7 +28,14 @@ export const actions = {
   async ESTADO ({ commit }, estado) {
     commit('setEstado', estado)
   },
-  
+  async cambiarDatosPropiedades({commit},{id,precio}){
+    let datosToken = localStorage.getItem('token');
+    this.$axios.defaults.headers.common['Authorization'] = "Bearer "+datosToken;  
+    let { data } = await this.$axios.post('/property/update',{
+      "property":{"pricing":{"price":precio}},"propertyID":id
+    });
+    commit('setCambioPropiedades',data.Data.Property);
+  },
 }
 
 // Getters
@@ -55,6 +63,9 @@ export const mutations = {
   
     setPropiedades(state,infoPropiedades) {
       state.infoPropiedades = infoPropiedades
+    },
+    setCambioPropiedades(state,cambioPropiedades) {
+      state.cambioPropiedades = cambioPropiedades
     },
     setEstado(state) {
         let estadoF
