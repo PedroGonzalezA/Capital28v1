@@ -35,6 +35,23 @@
           </v-col>
           <v-col cols="12">
             <v-row no-gutters justify="center">
+                
+               <v-col cols="3" v-for=" dato in filteredCourses" :key="dato._id"  class="pa-2 mx-auto">
+                    <CardDesarrollo
+                      :key="dato._id"
+                      :img="dato.media.featured_image"
+                      :nombre="dato.name"
+                      :direccion='dato.address'
+                      :status='dato.development_status'
+                      :precio='dato.pricing'
+                    />
+                </v-col>
+            </v-row>  
+          </v-col> 
+          
+          <v-col cols="12">
+            <v-row no-gutters justify="center">
+                
                <div v-for=" dato in filteredCourses" :key="dato._id">
                     <CardsDessarrollo
                       :key="dato._id"
@@ -42,10 +59,7 @@
                       :nombre="dato.name"
                       :direccion='dato.address'
                       :status='dato.development_status'
-                      desdeUSA='item.desdeUSA'
-                      hastaUSA='item.hastaUSA'
-                      desdeMXN='item.desdeMXN'
-                      hastaMXN='item.hastaMXN'
+                      :precio='dato.pricing'
                     />
                   </div>
             </v-row>  

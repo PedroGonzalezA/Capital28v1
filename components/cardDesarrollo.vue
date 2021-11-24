@@ -1,18 +1,12 @@
 <template>
-    <v-col 
-      cols="12"
-      sm="12"
-      md="12"
-      lg="12"
-      class="pa-2 mx-auto"
-    >
+
       <v-card
         class="mx-auto cardNuevo"
-        height="211px"
+        height="210px"
       >
-      <v-layout>
-        <v-flex xs8>
-            <v-img v-bind:src='imagen' class="imagenCard">
+      <v-row>
+          <v-col cols="8" class="pt-0 pe-0">
+                <v-img v-bind:src='imagen' class="imagenCard">
               
               
               <div class="contenidoImagen">
@@ -42,45 +36,46 @@
             >
               {{getName(status.actual_status)}}
             </v-btn>
-        </v-flex>
-        <v-flex xs4 class="pa-1" v-for="dato in precio" :key="dato.real_estate_group_id"
-        :v-if="dato==''">
-            <v-row 
-              justify="center" 
-              class="precioCard"
-              v-for="dato in precio" :key="dato.real_estate_group_id"
-            >
-              <v-col cols="10" class="pb-1 px-1">
-                <div>
-                  <strong>Desde USA:</strong>
-                  <br>${{dato.general_price_ranging.from}} {{dato.currency}}
-                </div>
-              </v-col>
-              <v-col cols="10" class="pa-1">
-                <div>
-                  <strong>Hasta USA:</strong>
-                  <br>${{dato.general_price_ranging.to}} {{dato.currency}}
-                </div>
-              </v-col>
-              <v-col cols="10" class="pa-1">
-                <div>
-                  <strong>Desde MXM:</strong>
-                  <br>${{dato.general_price_ranging.to}} {{dato.currency}}
-                </div>
-              </v-col>
-              <v-col cols="10" class="pa-1">
-                <div>
-                  <strong>Hasta MXN:</strong>
-                  <br>${{dato.general_price_ranging.to}} {{dato.currency}}
-                </div>
-              </v-col>
-            </v-row>
-        </v-flex>
-      </v-layout>
-            
-            
-            
-        
+          </v-col>
+          <v-col cols="4" class="pt-0 pl-0" v-for="dato in precio" :key="dato.real_estate_group_id" :v-if="dato==''">
+            <div class="">
+                <v-row 
+                    justify="center" 
+                    class="precioCard"
+                    
+                >
+                <v-col cols="10" class="pb-1 px-1">
+                    <div>
+                    <strong>Desde USA:</strong>
+                    <br>${{dato.general_price_ranging.from}} {{dato.currency}}
+                    </div>
+                </v-col>
+                <v-col cols="10" class="pa-1">
+                    <div>
+                    <strong>Hasta USA:</strong>
+                    <br>${{dato.general_price_ranging.to}} {{dato.currency}}
+                    </div>
+                </v-col>
+                <v-col cols="10" class="pa-1">
+                    <div>
+                    <strong>Desde MXM:</strong>
+                    <br>${{dato.general_price_ranging.to}} {{dato.currency}}
+                    </div>
+                </v-col>
+                <v-col cols="10" class="pa-1">
+                    <div>
+                    <strong>Hasta MXN:</strong>
+                    <br>${{dato.general_price_ranging.to}} {{dato.currency}}
+                    </div>
+                </v-col>
+                </v-row>
+            </div>
+          </v-col>
+      </v-row>
+      <div>
+          
+          
+      </div>     
         <v-card-text class="text-center" >
        
           <v-row align="center">
@@ -98,7 +93,6 @@
         </v-card-text>
 
       </v-card>
-    </v-col>
 
  
 </template>
@@ -162,7 +156,7 @@
   max-height: 44px;
 }
 .cardNuevo{
-  max-width: 300px;
+  width: 100%;
 }
 
 .paddingCol{
@@ -181,7 +175,7 @@
 }
 .imagenCard{
   height:145px;
-  width:200px;
+  width:210px;
   border-radius: 5px 5px 0 0;
 }
 .datos{
@@ -199,9 +193,17 @@
   width: 77%;
   text-align: center;
 }
-
+.estadoCard{
+  color: white;
+}
 .precioCard{
   font-size: 13px;
   text-align: center;
+}
+.imagenDiv{
+    width: 60%;
+}
+.precioDiv{
+    width: 40%;
 }
 </style>

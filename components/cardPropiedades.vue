@@ -27,6 +27,12 @@
           <v-row align="center" justify="center" class="textoCard">
             <v-col cols="7" class="pa-2 py-1">
               <div class="white--text">
+                <v-text-field
+                  v-model="precio"
+                  prepend-inner-icon="mdi-cash"
+                >
+                </v-text-field>
+                {{tipoMoneda}}
                <v-icon>mdi-cash</v-icon> ${{precio}}{{tipoMoneda}}
               </div>
               
@@ -144,9 +150,8 @@
     },
     data() {
       return{
-              show: false,
+            show: false,
             max25chars: v => v.length <= 25 || 'Entrada demasiado larga!',
-
        
       }
     },
