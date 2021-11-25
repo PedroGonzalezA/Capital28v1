@@ -156,7 +156,7 @@
           type: String,required:'true',default:'Sin nombre'
         },
         precio: {
-          type: Number,required:'true',default(){return}
+          type: Number,required:'true',default(){return precio}
         },
         estado: {
           type: String,required:'true',default:'Sin status'
@@ -177,14 +177,15 @@
           type: Object, required:'true',default:() => ({})
         },
     },
+
     methods:{
         Actualizar() {
             let id = this.id
             let precio 
             precio= this.precio
             precio=parseInt(precio);
-            this.$store.dispatch('propiedades/cambiarDatosPropiedades', { id,precio,});
             this.$emit('update:precio',precio)
+            this.$store.dispatch('propiedades/cambiarDatosPropiedades', { id,precio,});
             this.dialog = false       
         }
     },

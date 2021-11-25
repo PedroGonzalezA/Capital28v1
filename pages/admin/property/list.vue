@@ -57,7 +57,20 @@
                   </div>
                   
             </v-row>  
-          </v-col>           
+          </v-col> 
+          <v-col cols="12">
+            <v-row no-gutters justify="center" >
+                <div  v-for='item in filteredCourses' :key="item._id">
+                
+                          <CardsPropiedades 
+                              :id='item._id'
+                                          
+                          />
+                  
+                  </div>
+                  
+            </v-row>  
+          </v-col>            
     </v-col>
   </v-row>
 </template>

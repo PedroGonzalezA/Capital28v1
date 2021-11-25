@@ -14,20 +14,10 @@
       <v-card-title  >
         <v-row>
           <v-col cols="4" class="white--text py-1">
-            {{code}}
+              {{id}}
           </v-col>
           <v-col cols="8"  class="white--text py-1">
-            <DialogoPropiedades
-              :id="id"
-              :nombre="nombreDessarrollo"
-              :precio.sync="precio"
-              :recamaras="recamaras"
-              :cordenadas="cordenadas"
-              :banos="banos"
-              :TDP="tdp"
-              :m2="m2"
-              :estado="status"
-            />
+          
           </v-col>
         </v-row>
       </v-card-title>
@@ -37,7 +27,7 @@
           <v-row align="center" justify="center" class="textoCard">
             <v-col cols="7" class="pa-2 py-1">
               <div class="white--text">
-               <v-icon>mdi-cash</v-icon> ${{precio}}{{tipoMoneda}}
+               <v-icon>mdi-cash</v-icon> $
               </div>
               
             </v-col>
@@ -47,32 +37,32 @@
                 dark
                 label
               >
-                {{getName(status)}}
+                
               </v-chip>
             </v-col>
             <v-col cols="7" class="pa-2 py-1">
                   <div>
-                    <strong>Planta: </strong>{{planta}} 
+                    <strong>Planta: </strong> 
                   </div>
             </v-col>
             <v-col cols="5" class="pa-2 py-1">
                   <div>
-                    <strong>Recamaras: </strong>{{recamaras}} 
+                    <strong>Recamaras: </strong>
                   </div>
             </v-col>
 
             <v-col cols="6" class="pa-2 py-1">
-                  <strong>Baños: </strong>{{banos}}
+                  <strong>Baños: </strong>
             </v-col>
             <v-col cols="6" class="pa-2 py-1">
-                <div><strong>TDP: </strong>{{tdp}}</div>  
+                <div><strong>TDP: </strong></div>  
             </v-col>
             
             <v-col cols="4" class="pa-2 py-1"> 
-                <div><strong>M2: </strong>{{m2.total}} m2</div>
+                <div><strong>M2: </strong> m2</div>
             </v-col>
             <v-col cols="8" class="pa-2 py-1">
-                <div><strong>Precio X M2: </strong>{{precioxm2}}</div>
+                <div><strong>Precio X M2: </strong></div>
             </v-col>
           </v-row>
         </v-container>
@@ -82,54 +72,12 @@
 </template>
    
 <script>
+  import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     props:{
         id: {
           type: String,required:'true',default:'0'
         },
-        code: {
-          type: String,required:'true',default:'0'
-        },
-        nombreDessarrollo: {
-          type: String,default:'Sin nombre',required:'true',
-        },
-        precio: {
-          type: Number,required:'true',default:function(){return{precio:precio}}
-        },
-        tipoMoneda: {
-          type: String,default:'Sin Moneda',required:'true',
-        },
-        status: {
-          type: String,required:'true',default:'Sin status'
-        },
-        recamaras: {
-          type: String,required:'true',default:'Sin recamaras'
-        },
-        banos: {
-          type: String,required:'true',default:'Sin desdeUSA'
-        },
-        planta: {
-          type: String,required:'true',default:'Sin hastaMXN'
-        },
-        tdp: {
-          type: String,required:'true',default:'Sin desdeMXN'
-        },
-        m2: {
-          type: Object,required:'true',default: () => ({})
-        },
-        cordenadas: {
-          type: Object, required:'true',default:() => ({})
-        },
-        precioxm2: {
-          type: String,required:'true',default:'Sin desdeMXN'
-        },
-        construccion: {
-          type: String,required:'true',default:'Sin desdeMXN'
-        },
-        terraza: {
-          type: String,required:'true',default:'Sin desdeMXN'
-        },
-
         
     },
     data() {
@@ -139,10 +87,31 @@
        
       }
     },
-     mounted() {
-      this.$emit('update:precio',this.precio)
+    computed:{
+        ...mapGetters('propiedades', {
+            datosPropiedades: 'getPropiedades',
+            filtro: 'getFilteredCourse',
+            todos: 'allCourses',
+            estado:'getEstado',
+            searchW:'getSearchWord'
+        }),
+         filteredCourses() {
+            try {
+            let a = (this.filtro || this.todos)
+            console.log(a)
+            return a
+          } catch (e) {
+            console.log(e)
+          }
+        },
+    },
+    mounted() {
+      this.datosPropiedadesF();
     },
     methods: {
+       ...mapActions('propiedades', {
+            datosPropiedadesF: 'datosPropiedades',
+      }),
       getColor (dato) {
         if (dato == 'disponible') return '#70C879'
         else if (dato == 'reservado') return 'yellow'
