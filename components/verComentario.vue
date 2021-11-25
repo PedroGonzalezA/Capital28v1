@@ -2,34 +2,50 @@
   <div class="text-center">
     <v-dialog
       v-model="dialog"
-      width="500"
+      width="50%"
     >
       <template v-slot:activator="{ on, attrs }">
-        <div>
-            {{leadName}}
-        </div>
-        <v-btn
-          color="red lighten-2"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-            <v-row>
-                <v-col cols="4">
+        <v-card class="cardComentario">
+          <v-layout align-center justify-center class="tituloComentario"> 
+            <v-flex xs12>
+                {{leadName}}
+            </v-flex>
+          </v-layout>
+            <v-layout lign-center justify-center>
+              <v-flex xs12>
+                <v-btn
+                  color="#262d3c"
+                  dark
+                  block
+                  v-bind="attrs"
+                  v-on="on"
+                  class="abrirComentario"
+                  text
+                >
+                <v-layout align-center justify-center>
+                  <v-flex xs2>
                     {{nombre}}
-                </v-col>
-                <v-col cols="8">
-                    <v-chip label>
-                       {{fecha}} 
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-chip label color="#70C879">
+                      {{fechaUsuario(fecha)}} 
                     </v-chip>
-                </v-col>
-            </v-row>
-            
-        </v-btn>
+                  </v-flex>
+                  <v-flex xs4>
+                    <v-chip label color="#70C879">
+                      {{fecha}} 
+                    </v-chip>
+                  </v-flex>
+                </v-layout>                    
+                </v-btn>
+              </v-flex>
+            </v-layout>            
+        </v-card>
+       
       </template>
 
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
+        <v-card-title class="text-h5 tituloComentario">
           Comentario
           <v-spacer></v-spacer>
           <v-btn
@@ -43,15 +59,16 @@
             </v-icon>
           </v-btn>
         </v-card-title>
-
         <v-card-text>
             <v-timeline 
                 dense
-                clipped
+                clipped 
             >
                 <v-timeline-item 
                 v-for="dato in comentarios" 
                 :key="dato.comment_id"
+                small
+                color="#262d3c"
                 >   
                 <v-layout>
                     <v-flex>
@@ -103,6 +120,44 @@
         leadName: {
           type: String,required:'true',default:'Sin nombre',
         },
-    }
+    },
+    methods:{
+        fechaUsuario(dato){
+          var fecha 
+          var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          fecha = new Date(dato);
+          return fecha.toLocaleDateString("es-ES", options)
+        },
+        horaUsuario(dato){
+          let horas
+          let horaSin=""
+          for (var i = 11; i < 19; i++) {
+            horas=dato[i]
+            horaSin=horaSin+horas
+          }
+          console.log(horaSin);
+          var fecha 
+          var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          fecha = new Date(horaSin);
+          return fecha.toLocaleDateString("es-ES", options)
+        }
+    },
   }
 </script>
+
+<style lang="scss" scoped>
+  .abrirComentario{
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+  }
+  .cardComentario{
+    width: 100%;
+  }
+  .tituloComentario{
+    background: $colorAzulB ;
+    color: white;
+  }
+  .timeline{
+    background-color:$colorPrincipal;
+  }
+</style>
