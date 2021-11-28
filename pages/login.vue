@@ -57,7 +57,14 @@
                                                     v-on:keyup.enter="LoguearUsuario" 
                                                     @click:append="show1 = !show1"
                                                 ></v-text-field>
+                                        <div class="alerta pa-1" v-show="errores=='Error: Request failed with status code 500'">
+                                             Creadenciales no validas
+                                            <v-icon>
+                                                mdi-alert
+                                            </v-icon>
+                                        </div>
                                         </v-card-text>
+                                        
                                         <v-card-actions>
                                             <v-btn
                                                 color="#6ED9A0"
@@ -87,31 +94,35 @@
 import { mapState, mapActions,mapGetters } from 'vuex'
 
 export default {
-    
     layout:'login',
     submited:false,
     data(){
         return{
-         email:'',
-         password:'',
-         show1: false,
+            email:'',
+            password:'',
+            show1: false,
             rules: {
             required: value => !!value || 'Required.',
             }
         }
     },
-
+     computed:{
+        ...mapGetters('user', {
+           errores: 'getError',
+           code: 'getCode',
+        })
+    },
     methods:{
-       
+        
         
         LoguearUsuario() {
-                let email = this.email
-                let password = this.password
-                if(email != "" && password != "") {
-                    this.$store.dispatch('user/inicioSesion', { email, password });
-                }else{
-                    alert('Llena los campos');
-                }
+            let email = this.email
+            let password = this.password
+            if(email != "" && password != "") {
+                this.$store.dispatch('user/inicioSesion', { email, password });
+            }else{
+                alert('Llena los campos');
+            }
         }
     }
 }
@@ -119,5 +130,13 @@ export default {
 <style lang="scss" scoped>
 .contenedor{
     background: $colorPrincipal;
+}
+.alerta{
+    background: $rojoC28;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 16px;
+    
 }
 </style>

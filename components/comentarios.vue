@@ -4,7 +4,6 @@
       v-for="dato in datosComentarios.Manifest" 
       :key="dato._id"
       small
-      
     >
       <template v-slot:icon >
         <v-avatar 
@@ -22,9 +21,8 @@
           <img :src="datos.media.featured_image.src">
         </v-avatar>
       </template>
-    
-      <v-layout>
-        <v-flex xs2>
+      <v-row justify="center" align="center">
+        <v-col cols="12" sm="12" md="2">
           <v-chip 
             label 
             v-for="datos in dato.comments_contact_admin" 
@@ -48,8 +46,8 @@
           >
             {{datos.name}}
           </v-chip>
-        </v-flex>
-        <v-flex xs10>
+        </v-col>
+        <v-col cols="12" sm="12" md="10">
           <VerComentario
             :nombre="dato.comments[0].text"
             :fecha="dato.comments[0].created_at"
@@ -57,8 +55,8 @@
             :usuario="dato.comments_contact_admin"
             :leadName="dato.contact_lead_name"
           />
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
       
     </v-timeline-item>
   </v-timeline>
@@ -97,6 +95,7 @@ export default {
     computed:{
         ...mapGetters('comentarios', {
             datosComentarios: 'getComentarios',
+            
         }),
     },
      mounted() {

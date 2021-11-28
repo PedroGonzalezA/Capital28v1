@@ -26,6 +26,7 @@ export default {
     ...mapActions('lead', {
             datosLeadF: 'datosLead',
     })
+    
   },
   mounted(){
       this.datosLeadF();

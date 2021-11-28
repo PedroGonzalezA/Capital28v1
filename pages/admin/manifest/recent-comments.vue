@@ -1,6 +1,6 @@
 <template>
     <v-container
-        class="fill-height  contenedor"
+        class="fill-height"
         fluid 
     >
         <v-row
@@ -8,15 +8,15 @@
             justify="center"
             class="fill-height "
         >
-            <v-col cols="10" class="titulo">
+            <v-col cols="12" class="titulo text-h6 py-0">
                 Comentarios recientes
+                <v-divider/>
             </v-col>
-            <v-col cols="10">
+            <v-col cols="12" sm="10">
                 <Comentarios/>
             </v-col>
         </v-row>
     </v-container>
-  
 </template>
 <script>
 import { mapState, mapActions,mapGetters } from 'vuex'

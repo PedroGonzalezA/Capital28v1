@@ -2,7 +2,6 @@
   <v-row justify="center">
     <v-dialog
       v-model="dialog"
-      persistent
       max-width="600px"
     >
       <template v-slot:activator="{ on, attrs }">
@@ -16,16 +15,28 @@
         </v-btn>
       </template>
       <v-card>
-        <v-card-title>
-          <span class="text-h5">Actualizar</span>
+        <v-card-title class="text-h5 tituloComentario">
+          Comentario
+          <v-spacer></v-spacer>
+          <v-btn
+            class="btnCerrar"            
+            text
+            @click="dialog = false"
+            icon
+          >
+            <v-icon>
+                mdi-close-box
+            </v-icon>
+          </v-btn>
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="pa-1">
           <v-container>
             <v-row>
-                <v-col
+              <v-col
                 cols="12"
                 sm="6"
                 md="8"
+                class="pa-1"
               >
                 <v-text-field
                   label="ID"
@@ -38,10 +49,11 @@
                 cols="12"
                 sm="6"
                 md="4"
+                class="pa-1"
               >
                 <v-text-field
                   label="Precio"
-                  required
+                  type="number"
                   prepend-inner-icon="mdi-cash"
                   v-model="precio"
                 ></v-text-field>
@@ -50,9 +62,10 @@
                 cols="12"
                 sm="6"
                 md="2"
+                class="pa-1"
               >
                 <v-text-field
-                  label="Recamaras"
+                  label="#Recamaras"
                   v-model="recamaras"
                   type="number"
                 ></v-text-field>
@@ -61,24 +74,24 @@
                 cols="12"
                 sm="6"
                 md="2"
+                class="pa-1"
               >
                 <v-text-field
-                  label="Baños"
+                  label="#Baños"
                   v-model="banos"
-                  required
                   type="number"
                 ></v-text-field>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="4" class="pa-1">
                 <v-text-field
                   label="TDP"
                   v-model="TDP"
-                  required
                 ></v-text-field>
               </v-col>
               <v-col
                 cols="12"
                 sm="4"
+                class="pa-1"
               >
                 <v-select
                   :items="estados"
@@ -88,53 +101,51 @@
               </v-col>
               <v-divider></v-divider>
 
-              <v-col cols="4">
+              <v-col 
+                cols="4" 
+                class="pa-1"
+              >
                 <v-text-field
                   label="Construcción"
+                  type="number"
                   v-model="m2.construction"
-                  required
                 ></v-text-field>
               </v-col>
               <v-col
                 cols="12"
                 sm="4"
+                class="pa-1"
               >
-               <v-text-field
+                <v-text-field
                   label="Terraza"
-                  v-model="m2.terrace"
                   
-                  required
+                  v-model="m2.terrace"
                 ></v-text-field>
               </v-col>
               <v-col
                 cols="12"
                 sm="4"
+                class="pa-1"
               >
                 <v-text-field
                   label="Total"
+                  type="number"
                   v-model="m2.total"
-                  required
                 ></v-text-field>
               </v-col>
-              
             </v-row>
           </v-container>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="botones">
           <v-spacer></v-spacer>
           <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Cerrar
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
             text
             @click="Actualizar"
+            class="btnGuardar"
           >
-            Guardar
+            <v-icon>
+              mdi-content-save
+            </v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -146,7 +157,7 @@
   export default {
     data: () => ({
       dialog: false,
-      estados:["disponible","vendido"]
+      estados:["disponible","vendido","reservado","indefinido"]
     }),
     props:{
         id: {
@@ -191,3 +202,19 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+.tituloComentario{
+    background: $azulBC28 ;
+    color: white;
+  }
+.btnCerrar{
+    color: $rojoC28;
+}
+.botones{
+  background: $azulBC28;
+}
+.btnGuardar{
+  color: $azulC28;
+}
+</style>

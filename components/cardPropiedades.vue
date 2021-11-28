@@ -11,8 +11,8 @@
       class="mx-auto titulo"
       width="304"
     >
-      <v-card-title  >
-        <v-row>
+      <v-card-title  class="tituloCard">
+        <v-row align="center" justify="center">
           <v-col cols="4" class="white--text py-1">
             {{code}}
           </v-col>
@@ -37,7 +37,7 @@
           <v-row align="center" justify="center" class="textoCard">
             <v-col cols="7" class="pa-2 py-1">
               <div class="white--text">
-               <v-icon>mdi-cash</v-icon> ${{precio}}{{tipoMoneda}}
+               <v-icon>mdi-cash</v-icon> $ {{precio}} {{tipoMoneda}}
               </div>
               
             </v-col>
@@ -50,22 +50,24 @@
                 {{getName(status)}}
               </v-chip>
             </v-col>
-            <v-col cols="7" class="pa-2 py-1">
+            <v-col cols="6" class="pa-2 py-1">
+                <div><strong>TDP: </strong>{{tdp}}</div>  
+            </v-col>
+            <v-col cols="6" class="pa-2 py-1">
                   <div>
                     <strong>Planta: </strong>{{planta}} 
                   </div>
             </v-col>
-            <v-col cols="5" class="pa-2 py-1">
-                  <div>
-                    <strong>Recamaras: </strong>{{recamaras}} 
-                  </div>
-            </v-col>
+           
+            
 
             <v-col cols="6" class="pa-2 py-1">
-                  <strong>Baños: </strong>{{banos}}
+                  <strong>#Baños: </strong>{{banos}}
             </v-col>
             <v-col cols="6" class="pa-2 py-1">
-                <div><strong>TDP: </strong>{{tdp}}</div>  
+                  <div>
+                    <strong>#Recs: </strong>{{recamaras}} 
+                  </div>
             </v-col>
             
             <v-col cols="4" class="pa-2 py-1"> 
@@ -146,7 +148,7 @@
       getColor (dato) {
         if (dato == 'disponible') return '#70C879'
         else if (dato == 'reservado') return 'yellow'
-        else return '#D22424'
+        else return '#eb5a56'
       },
       getName (dato) {
         if (dato == 'disponible') return 'DISPONIBLE'
@@ -174,10 +176,13 @@
     width: 300px;
   }
   .titulo{
-    background:$colorAzulB;
+    background:$azulBC28;
     color: white;
   }
   .textoCard{
     color: white;
+  }
+  .tituloCard{
+    background: $azulFC28;
   }
 </style>>

@@ -1,39 +1,27 @@
 <template>
-  <v-row>
-
-    <v-col cols="12">
-         <v-col cols="12">
-           <v-row align="center">
-              <v-col
-                cols="10"
-                sm="11"
-                md="11"
-                lg="10"
-              >
-                <v-text-field
+  <div>
+    <v-layout>
+      <v-flex xs7 sm9 md10 lg10 class="pa-3">
+          <v-text-field
                   v-model="search"
                   append-icon="mdi-magnify"
                   label="Buscar"
                   hide-details
                   clearable
-                 ></v-text-field>
-              </v-col>
-              <v-col
-                cols="2"
-                sm="1"
-                md="1"
-                lg="2"
-              >
-                  <v-switch
-                    v-model="estadoA"
-                    label=" Solo Disponibles"
-                    class="pa-3"
-                  ></v-switch>
-              </v-col>
-            </v-row>
-         </v-col>
-          <v-col cols="12">
-            <v-row no-gutters justify="center" >
+          ></v-text-field>
+      </v-flex>
+      <v-flex xs3 sm3 md2 lg2>
+        <v-switch
+          v-model="estadoA"
+          label=" Solo Disponibles"
+          class="pa-3"
+          @click="mensaje(snackText)"
+        ></v-switch>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <v-flex xs12>
+          <v-row no-gutters justify="center" >
                 <div  v-for='item in filteredCourses' :key="item._id">
                 
                           <CardPropiedades 
@@ -56,28 +44,18 @@
                   
                   </div>
                   
-            </v-row>  
-          </v-col> 
-          <v-col cols="12">
-            <v-row no-gutters justify="center" >
-                <div  v-for='item in filteredCourses' :key="item._id">
-                
-                          <CardsPropiedades 
-                              :id='item._id'
-                                          
-                          />
-                  
-                  </div>
-                  
-            </v-row>  
-          </v-col>            
-    </v-col>
-  </v-row>
+            </v-row>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 <script>
   import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
+      snack: false,
+      snackColor: '',
+      snackText: '',
     }),
     methods:{
        ...mapActions('propiedades', {
@@ -88,6 +66,25 @@
         if (dato == 'disponible') return 'DISPONIBLE'
         else if (dato == 'reservado') return 'RESERVADO'
         else return 'VENDIDO'
+      },
+      mensaje (data) {
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Data saved'
+        return
+      },
+      cancel () {
+        this.snack = true
+        this.snackColor = 'error'
+        this.snackText = 'Canceled'
+      },
+      open () {
+        this.snack = true
+        this.snackColor = 'info'
+        this.snackText = 'Dialog opened'
+      },
+      close () {
+        console.log('Dialog closed')
       },
     },
   

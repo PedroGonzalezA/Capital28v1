@@ -1,150 +1,168 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-        <v-container fluid>
-          <v-col cols="12">
-            <v-row align="center" justify="center" >
-              <v-col cols="3" sm="7" md="9" lg="11">
-                  <v-text-field v-model="nuevaTarea" ></v-text-field>
+  <v-row class="pa-0">
+    <v-col cols="12" class="pa-0">
+         <v-col cols="12">
+           <v-row align="center">
+              <v-col
+                cols="9"
+                sm="9"
+                md="10"
+                lg="10"
+              >
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Buscar"
+                  hide-details
+                  clearable
+                 ></v-text-field>
               </v-col>
-              <v-col cols="9" sm="5" md="3" lg="1">
-                  <v-btn icon @click="agregarTarea"><v-icon>mdi-plus</v-icon></v-btn>
+              <v-col
+                cols="2"
+                sm="1"
+                md="1"
+                lg="2"
+              >
+                  <v-switch
+                    v-model="estadoA"
+                    label=" Solo Disponibles"
+                    class="pa-3"
+                    @click="mensaje(snackText)"
+                  ></v-switch>
               </v-col>
             </v-row>
-          </v-col>
+         </v-col>
           <v-col cols="12">
-            <v-row no-gutters justify="center">
-                <div  v-for='(item,id) in tareas' :key="id">
+            <v-row no-gutters justify="center" >
+                <div  v-for='item in filteredCourses' :key="item._id">
                 
-                          <CardPropiedades
-                              :id="id"
-                              :nombre="item.nombre"
-                              :direccion='item.direccion'
-                              :status='item.status'
-                              :desdeUSA='item.desdeUSA'
-                              :hastaUSA='item.hastaUSA'
-                              :desdeMXN='item.desdeMXN'
-                              :hastaMXN='item.hastaMXN'
-                              :reveal.sync="item.reveal"
-                
+                          <CardPropiedades 
+                              :id='item._id'
+                              :code="item.code"
+                              :cordenadas="item.miscellaneous"
+                              :nombreDessarrollo="item.desarrollo.name"
+                              :tipoMoneda='item.pricing.currency'
+                              :precio.sync='item.pricing.price'
+                              :status='item.contract_status'
+                              :recamaras='item.features.rooms'
+                              :banos='item.features.bathrooms'
+                              :planta='item.floor.name'
+                              :tdp='item.building.type'
+                              :m2='item.building'
+                              precioxm2='item.precioxm2'
+                              :construccion='item.construction'
+                              :terraza='item.terrace'                
                           />
                   
                   </div>
+                  
             </v-row>  
           </v-col> 
-          
-          
-      </v-container>
+                     
     </v-col>
+    <div class="text-center ma-2">
+    <v-snackbar
+      v-model="snack"
+      :timeout="3000"
+      :color="snackColor"
+    >
+      {{ snackText }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="pink"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Cerrrar
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
   </v-row>
+  
 </template>
 <script>
+  import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data: () => ({
-      titulo:'gym',
-      tareas:[
-         {
-              id:'0',
-              nombre:'Test1',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-          {
-              id:'1',
-              nombre:'Test2',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-          {
-              id:'2',
-              nombre:'Test3',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-          {
-              id:'3',
-              nombre:'Test4',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-          {
-              id:'4',
-              nombre:'Test5',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-          {
-              id:'5',
-              nombre:'Test6',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-          {
-              id:'6',
-              nombre:'Test7',
-              direccion:'Direccion',
-              status:'EN OBRA',
-              desdeUSA:'$250,000 USA',
-              hastaUSA:'$500,000 USA',
-              desdeMXN:'$500,000 MXN',
-              hastaMXN:'$1,000,000 MXN',        
-              reveal: false, 
-          },
-      ],
-      nuevaTarea:'',
-      reveal:false,
+      snack: false,
+      snackColor: '',
+      snackText: '',
     }),
     methods:{
-      agregarTarea: function(){
-        this.tareas.push({
-        nombre:this.nuevaTarea,
-        direccion:'Sin dirrecion',
-        status:'Sin estado',
-        desdeUSA:'Vacio',
-        hastaUSA:'Vacio',
-        desdeMXN:'Vacio',
-        hastaMXN:'Vacio',
-        reveal:false,
-      });
-        this.nuevaTarea='';
-      }
+       ...mapActions('propiedades', {
+            datosPropiedadesF: 'datosPropiedades',
+      }),
+      
+      getEstado (dato) {
+        if (dato == 'disponible') return 'DISPONIBLE'
+        else if (dato == 'reservado') return 'RESERVADO'
+        else return 'VENDIDO'
+      },
+      mensaje (data) {
+        this.snack = true
+        this.snackColor = 'success'
+        this.snackText = 'Data saved'
+        return
+      },
+      cancel () {
+        this.snack = true
+        this.snackColor = 'error'
+        this.snackText = 'Canceled'
+      },
+      open () {
+        this.snack = true
+        this.snackColor = 'info'
+        this.snackText = 'Dialog opened'
+      },
+      close () {
+        console.log('Dialog closed')
+      },
     },
   
     computed: {
-        posts() {
-            return this.$store.getters['posts/getPosts']
+        ...mapGetters('propiedades', {
+            datosPropiedades: 'getPropiedades',
+            filtro: 'getFilteredCourse',
+            todos: 'allCourses',
+            estado:'getEstado',
+            searchW:'getSearchWord'
+        }),
+        
+        filteredCourses() {
+            try {
+            let a = (this.filtro || this.todos)
+            console.log(a)
+            return a
+          } catch (e) {
+            console.log(e)
+          }
+        },
+        search: {
+          get () {
+            return this.searchW
+          },
+          set (value) {
+            this.$store.dispatch('propiedades/FILTERED_COURSES', value)
+            
+          }
+        },
+        estadoA: {
+          get () {
+            return this.estado
+          },
+          set (value) {
+            this.$store.dispatch('propiedades/ESTADO',value)
+          }
         }
-    }
+        
+    },
+    
+    mounted() {
+      this.datosPropiedadesF();
+    },
    
   }
 </script>

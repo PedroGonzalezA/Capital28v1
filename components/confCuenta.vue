@@ -21,14 +21,20 @@
         </v-btn>
       </template>
       <v-card>
-        <v-toolbar
-              color="#262d3c"
-              dark
-            >    
-            <v-toolbar-title>
-               <h5>Mi cuenta</h5> 
-            </v-toolbar-title>
-            </v-toolbar>
+        <v-card-title class="text-h5 tituloComentario">
+          Comentario
+          <v-spacer></v-spacer>
+          <v-btn
+            class="btnCerrar"            
+            text
+            @click="dialog = false"
+            icon
+          >
+            <v-icon>
+                mdi-close-box
+            </v-icon>
+          </v-btn>
+        </v-card-title>
         <v-card-text>
           <v-container>
             <v-row justify="center">
@@ -52,7 +58,7 @@
                                 >
                                     <v-avatar
                                         height="20vh"
-                                        min-width="48px"
+                                        MAX-width="48px"
                                         width="20vh"
                                         >
                                         <v-img
@@ -112,7 +118,7 @@
                                           class="py-2 px-5"
                                           >
                                               <div>
-                                                  {{dato.created_at}}
+                                                  {{fechaUsuario(dato.created_at)}} 
                                               </div>
                                           </v-col>
                                       </v-row>
@@ -135,7 +141,7 @@
                                           class="py-2 px-5"
                                           >
                                               <div>
-                                                  {{dato.updated_at}}
+                                                  {{fechaUsuario(dato.updated_at)}}
                                               </div>
                                           </v-col>
                                       </v-row>
@@ -183,6 +189,7 @@
                 <v-col
                  cols="12"
                  sm="12"
+                 class="pb-0"
                  >
                 <v-text-field
                     label="Telefono"
@@ -190,31 +197,24 @@
                     filled
                 ></v-text-field>
                 </v-col>
-
                 <v-col
                  cols="12"
                  sm="12"
                  >
-                  <v-card-actions>
-                    <v-btn
-                      color="red darken-2"
+                  <div class="alertaE" >
+                    {{mensaje}}
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="12" class="py-0 btnActualizarC">
+                  <v-btn
+                      class="btnActualizar"
                       text
-                      @click="dialog = false"
-                    >
-                      Cancelar
-                    </v-btn>                    
-                    <v-spacer></v-spacer>
-
-                    <v-btn
-                      color="#6ED9A0"
-                      text
-                      @click="dialog = false"
+                      @click="cambioDatosUsuario"
                     >
                       Actualizar
-                    </v-btn>
-                  </v-card-actions>
+                    </v-btn>    
                 </v-col>
-                
+                                
                
               </v-row>
                
@@ -236,49 +236,87 @@
     }),
     props:{
        id: {
-          type: String,
-          required:'true',
-          default:'Sin id'
+          type: String,required:'true',default:'Sin id'
+        },
+        contact_id: {
+          type: String,required:'true',default:'Sin id'
         },
         img: {
-          type: String,
-          required:'true',
-          default:'Sin imagen'
+          type: Object,required:'true',default: () => ({}),
         },
        fullName: {
-          type: String,
-          required:'true',
-          default:'Sin nombre'
+          type: String,required:'true',default:'sin nombre'
         },
         email: {
-          type: String,
-          required:'true',
-          default:'Sin email'
+          type: String,required:'true',default:'Sin email'
         },
         
         tipoUsuario: {
-          type: String,
-          required:'true',
-          default:'Sin usuario'
+          type: String,required:'true',default:'Sin usuario'
         },
         telefono: {
-          type: String,
-          required:'true',
-          default:'Sin telefono'
+          type: String,required:'true',default:'Sin telefono'
         },
     },
     computed:{
     ...mapGetters('datos', {
             datosHeaderContactRealEstateGroup: 'getDatosHeaderContactRealEstateGroup',
+    }),
+    ...mapGetters('user', {
+            mensaje: 'getMessage',
         })
     },
     methods:{
       ...mapActions('datos', {
               datosHeaderUserF: 'datosHeaderUser',
-      })
+      }),
+      fechaUsuario(dato){
+          var fecha 
+          var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',minutes: 'long',seconds: 'numeric' };
+          fecha = new Date(dato);
+          return fecha.toLocaleDateString("es-ES", options)
+      },
+      cambioDatosUsuario() {
+            let email = this.email
+            let name = this.fullName
+            let phone = this.telefono
+            let role = this.tipoUsuario
+            let table = this.tipoUsuario
+            let user_id = this.id
+            let _id = this.contact_id
+            this.$emit('update:fullName',this.fullName)
+            this.$store.dispatch('user/actualizarDatos', { _id,user_id,table,role,phone,name,email});
+            this.dialog=false
+        }
     },
     mounted(){
         this.datosHeaderUserF();
     }
   }
 </script>
+<style lang="scss" scoped>
+.contenedor{
+    background: $colorPrincipal;
+}
+.alertaE{
+    background: $colorVerde;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 16px;
+    
+}
+ .tituloComentario{
+    background: $azulBC28 ;
+    color: white;
+  }
+  .btnCerrar{
+    color: $rojoC28;
+  }
+  .btnActualizarC{
+    text-align: right;
+  }
+  .btnActualizar{
+    color: $azulBC28;
+  }
+</style>

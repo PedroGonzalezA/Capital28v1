@@ -39,7 +39,7 @@
                <v-col cols="3" v-for=" dato in filteredCourses" :key="dato._id"  class="pa-2 mx-auto">
                     <CardDesarrollo
                       :key="dato._id"
-                      :img="dato.media.featured_image"
+                      :img="dato.media"
                       :nombre="dato.name"
                       :direccion='dato.address'
                       :status='dato.development_status'

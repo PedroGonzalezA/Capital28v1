@@ -1,100 +1,79 @@
 <template>
-
-      <v-card
-        class="mx-auto cardNuevo"
-        height="210px"
-      >
-      <v-row>
-          <v-col cols="8" class="pt-0 pe-0">
-                <v-img v-bind:src='imagen' class="imagenCard">
-              
-              
-              <div class="contenidoImagen">
-                <v-btn
-                  class="text-capitalize botonImagen"
-                  dark
-                  icon
-                  :to="'/admin/real-estate-development/edit/'+nombre"
-                >
-                  <v-icon class="iconoImagen">
-                  mdi-playlist-edit
-                  </v-icon>
-                </v-btn>
-                <div class="tituloImagen">
-                  <strong>{{nombre}}</strong>
-                </div>
-                
-              </div>
-
-            </v-img>
-            <v-btn
-              tile
-              :color="getColor(status.actual_status)"
-              class="text-capitalize"
-              block
-              dark
-            >
-              {{getName(status.actual_status)}}
-            </v-btn>
-          </v-col>
-          <v-col cols="4" class="pt-0 pl-0" v-for="dato in precio" :key="dato.real_estate_group_id" :v-if="dato==''">
-            <div class="">
-                <v-row 
-                    justify="center" 
-                    class="precioCard"
-                    
-                >
-                <v-col cols="10" class="pb-1 px-1">
-                    <div>
-                    <strong>Desde USA:</strong>
-                    <br>${{dato.general_price_ranging.from}} {{dato.currency}}
-                    </div>
-                </v-col>
-                <v-col cols="10" class="pa-1">
-                    <div>
-                    <strong>Hasta USA:</strong>
-                    <br>${{dato.general_price_ranging.to}} {{dato.currency}}
-                    </div>
-                </v-col>
-                <v-col cols="10" class="pa-1">
-                    <div>
-                    <strong>Desde MXM:</strong>
-                    <br>${{dato.general_price_ranging.to}} {{dato.currency}}
-                    </div>
-                </v-col>
-                <v-col cols="10" class="pa-1">
-                    <div>
-                    <strong>Hasta MXN:</strong>
-                    <br>${{dato.general_price_ranging.to}} {{dato.currency}}
-                    </div>
-                </v-col>
-                </v-row>
-            </div>
-          </v-col>
-      </v-row>
       <div>
-          
-          
-      </div>     
-        <v-card-text class="text-center" >
-       
-          <v-row align="center">
+        <div>
+          <v-card
+            class="mx-auto cardNuevo"
+            height="209px"
+          >
+            <div class="imagenE">
+                  <v-img v-bind:src='imagen.featured_image' class="imagenCard">              
+                    <div class="contenidoImagen">
+                      <v-btn
+                        class="text-capitalize botonImagen"
+                        dark
+                        icon
+                        :to="'/admin/real-estate-development/edit/'+nombre"
+                      >
+                        <v-icon class="iconoImagen">
+                          mdi-playlist-edit
+                        </v-icon>
+                      </v-btn>
+                      <div class="tituloImagen">
+                        <strong>{{nombre}}</strong>
+                      </div>
+                      
+                    </div>
 
-            <v-col cols="8" class="paddingCol">
-              <div class=" text--primary">
-                  <strong>Direccion:</strong>
-                  {{direccion.full_address}}
+                  </v-img>
+                  <div class="estado text-center" :style="'background:'+getColor(status.actual_status)+''">
+                      <strong>{{getName(status.actual_status)}}</strong>
+                  </div>
+            </div>
+            <div class="textoImagen"  v-for="dato in precio" :key="dato.real_estate_group_id" :v-if="dato==''">
+              <v-row 
+                justify="center" 
+                class="precioCard"
+                          
+              >
+                      <v-col cols="10" class="pb-1 px-1">
+                          <div>
+                          <strong>Desde USA:</strong>
+                          <br>${{dato.general_price_ranging.from}} {{dato.currency}}
+                          </div>
+                          <v-divider/>
+                      </v-col>
+                      
+                      <v-col cols="10" class="pa-1">
+                          <div>
+                          <strong>Hasta USA:</strong>
+                          <br>${{dato.general_price_ranging.to}} {{dato.currency}}
+                          </div>
+                          <v-divider/>
+                      </v-col>
+                      <v-col cols="10" class="pa-1">
+                          <div>
+                          <strong>Desde MXM:</strong>
+                          <br>${{dato.general_price_ranging.to}} {{dato.currency}}
+                          </div>
+                          <v-divider/>
+                      </v-col>
+                      <v-col cols="10" class="pa-1">
+                          <div>
+                          <strong>Hasta MXN:</strong>
+                          <br>${{dato.general_price_ranging.to}} {{dato.currency}}
+                          </div>
+                      </v-col>
+              </v-row>
+            </div>
+            <div class="direccion">
+              <div class=" text--primary text-center">
+                <p class="titulo">Direccion:</p>
+                {{direccion.full_address}}
               </div>
-            </v-col>
-            
-
-
-          </v-row>
-        </v-card-text>
-
-      </v-card>
-
- 
+            </div>
+          </v-card>
+        </div>
+      </div>
 </template>
 <script>
   export default {
@@ -157,11 +136,12 @@
 }
 .cardNuevo{
   width: 100%;
+  background: $azulBC28;
+  color: white;
 }
 
 .paddingCol{
     max-height: 56px;
-    padding: 0px;
 }
 .datosDessarrollo{
   height: 137px;
@@ -174,9 +154,9 @@
   background: $colorAzulB;
 }
 .imagenCard{
-  height:145px;
+  height:161px;
   width:210px;
-  border-radius: 5px 5px 0 0;
+  border-radius: 5px 0px 0 0;
 }
 .datos{
   height: 170px;
@@ -185,12 +165,13 @@
   position: relative;
 }
 .iconoImagen{
-  color: $colorPrincipal;
+  color: $grisC28;
 }
 .tituloImagen{
   position: relative;
   display: inline-block;
-  width: 77%;
+  width: 70%;
+  color: white;
   text-align: center;
 }
 .estadoCard{
@@ -205,5 +186,23 @@
 }
 .precioDiv{
     width: 40%;
+}
+.imagenE{
+  width:207px;
+  height:185px;
+  border-radius: 5px 5px 0 0;
+  display: inline-block;
+}
+.textoImagen{
+   width:33%;
+   height:185px;
+   display: inline-block;
+   position: absolute;
+}
+.direccion{
+  background: $azulC28;
+}
+.titulo{
+  color: white;
 }
 </style>

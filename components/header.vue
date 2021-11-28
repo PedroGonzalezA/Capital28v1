@@ -23,12 +23,13 @@
       >
       </v-img>
         <v-spacer /> 
-          {{$route.name}}
+          {{headerF($route.name)}}
         <v-spacer />
         <Perfil
-          :img="imagenUser"
-          :id="datosHeaderContact.phone"
-          :fullName="datosHeaderUser.name"
+          :img="datosHeaderContact.media"
+          :id="datosHeaderUser._id"
+          :contact_id="datosHeaderUser.contact_id"
+          :fullName.sync="datosHeaderUser.name"
           :email="datosHeaderUser.email"
           totalLeads=2
           leadsActivos=2
@@ -39,7 +40,7 @@
         
 
       <v-btn icon
-      color="red"
+      class="cerrarSesion"
       @click="CerrarSesion"
       >
         <v-icon>mdi-power</v-icon>      
@@ -97,7 +98,6 @@ export default {
       miniVariant: true,
       right: true,
       rightDrawer: false,
-      imagenUser:"",
       items: [
         {
           icon: 'mdi-account-box-multiple-outline',
@@ -155,13 +155,34 @@ export default {
     }),
     ...mapActions('datos', {
             datosHeaderUserF: 'datosHeaderUser',
-    })
+    }),
+    headerF(dato){
+      switch (dato) {
+        case "admin-lead":
+          return "Leads"
+        break;
+        case "admin-contacts":
+          return "Asesores"
+        break;
+        case "admin-manifest-recent-comments":
+          return "Comentarios Recientes"
+        break;
+        case "admin-property-list":
+          return "Propiedades"
+        break;
+        case "admin-real-estate-development-list":
+          return "Desarrollos Inmobiliarios"
+        break;
+        
+        default:
+          return "Sin header"
+        break;
+      }
+    }
   },
   mounted(){
       this.datosHeaderUserF();
       this.datosToken();
-      let imagen = localStorage.getItem('user_image');  
-      this.imagenUser= imagen;   
   }
 }
 </script>
@@ -172,4 +193,7 @@ export default {
 .textoTitulo{
   font-size: 14px;
 }
+  .cerrarSesion{
+        color: $rojoC28;
+  }
 </style>

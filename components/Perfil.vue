@@ -20,7 +20,7 @@
               size="30 "
             >
               <v-img
-                :src="img"
+                :src="img.featured_image"
               >
 
               </v-img>            
@@ -46,7 +46,7 @@
                    class="v-list-item__avatar"
                   >
                     <v-img
-                      :src="img"
+                      :src="img.featured_image"
                     >
                     </v-img>
                   </v-avatar>           
@@ -92,9 +92,10 @@
 
                       <ConfCuenta 
                         :id="id"
-                        :img="img"
+                        :contact_id="contact_id"
+                        :img="img.featured_image"
                         :email="email"
-                        :fullName="fullName"
+                        :fullName.sync="fullName"
                         :tipoUsuario="tipoUsuario"
                         :telefono="telefono"
                       />
@@ -102,8 +103,8 @@
             </v-list-item>
           </v-list>
             <v-divider></v-divider>
-            <v-list color="red darken-2" dark>
-              <v-card-actions >
+            <v-list class="cerrarSesion" dark>
+              <v-card-actions class="pa-0">
                 <v-btn
                   tile
                   text
@@ -131,10 +132,13 @@
           required:'true',
           default:'Sin id'
         },
+        contact_id: {
+          type: String,required:'true',default:'Sin id'
+        },
         img: {
-          type: String,
+          type: Object,
           required:'true',
-          default:'Sin imagen'
+          default: () => ({}),
         },
        fullName: {
           type: String,
@@ -174,3 +178,9 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+  .cerrarSesion{
+    background-color:$rojoC28;
+    color: $rojoC28;
+  }
+</style>

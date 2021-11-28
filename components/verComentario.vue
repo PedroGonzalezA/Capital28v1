@@ -2,43 +2,46 @@
   <div class="text-center">
     <v-dialog
       v-model="dialog"
-      width="50%"
+      width="100%"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-card class="cardComentario">
-          <v-layout align-center justify-center class="tituloComentario"> 
-            <v-flex xs12>
+          <v-layout  class="tituloComentario"> 
+            <v-flex xs12 sm12 md5 lg5>
                 {{leadName}}
             </v-flex>
           </v-layout>
-            <v-layout lign-center justify-center>
-              <v-flex xs12>
-                <v-btn
-                  color="#262d3c"
-                  dark
-                  block
-                  v-bind="attrs"
-                  v-on="on"
-                  class="abrirComentario"
-                  text
-                >
-                <v-layout align-center justify-center>
-                  <v-flex xs2>
-                    {{nombre}}
-                  </v-flex>
-                  <v-flex xs6>
-                    <v-chip label color="#70C879">
+            <v-layout align-center justify-center>
+              <v-row align="center" justify="center">
+                <v-col cols="12" sm="12" md="4" class="pb-0">
+                  {{nombre}}
+                </v-col>
+                <v-col cols="12" sm="6" md="5"  class="pb-0"> 
+                    <v-chip label  class="fecha" color="#3e4b5c">
                       {{fechaUsuario(fecha)}} 
                     </v-chip>
-                  </v-flex>
-                  <v-flex xs4>
-                    <v-chip label color="#70C879">
-                      {{fecha}} 
+                </v-col>
+                <v-col cols="12" sm="6" md="3"  class="pb-0">
+                    <v-chip label  outlined class="hora" color="#5fa7a4">
+                        {{horaUsuario(fecha)}} 
                     </v-chip>
-                  </v-flex>
-                </v-layout>                    
-                </v-btn>
-              </v-flex>
+                </v-col>
+                <v-col cols="12" class="pt-0">
+                  <v-btn
+                    color="#262d3c"
+                    dark
+                    block
+                    v-bind="attrs"
+                    v-on="on"
+                    class="abrirComentario"
+                    text
+                  >
+                    <v-icon>
+                      mdi-chevron-up
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+              </v-row>         
             </v-layout>            
         </v-card>
        
@@ -49,7 +52,7 @@
           Comentario
           <v-spacer></v-spacer>
           <v-btn
-            color="red"
+            class="btnCerrar"            
             text
             @click="dialog = false"
             icon
@@ -76,7 +79,7 @@
                          Fecha:   
                         </div>
                         
-                        {{dato.created_at}}
+                        {{fechaUsuario(dato.created_at)}} {{horaUsuario(dato.created_at)}}
                     </v-flex>
                     <v-flex>
                         <div>
@@ -98,6 +101,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions,mapGetters } from 'vuex'
   export default {
     data () {
       return {
@@ -124,24 +128,29 @@
     methods:{
         fechaUsuario(dato){
           var fecha 
-          var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',minutes: 'long',seconds: 'numeric' };
           fecha = new Date(dato);
           return fecha.toLocaleDateString("es-ES", options)
         },
         horaUsuario(dato){
-          let horas
-          let horaSin=""
-          for (var i = 11; i < 19; i++) {
-            horas=dato[i]
-            horaSin=horaSin+horas
-          }
-          console.log(horaSin);
-          var fecha 
-          var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-          fecha = new Date(horaSin);
-          return fecha.toLocaleDateString("es-ES", options)
-        }
+          var hora 
+          hora = new Date(dato);
+          return hora.toLocaleTimeString('es-US')
+        },
+        comF(dato){
+        
+            console.log(dato);
+          
+       }
     },
+    computed:{
+        ...mapGetters('comentarios', {
+            datosComentarios: 'getComentarios',
+        }),
+    },
+    mounted(){
+      this.comF(this.comentarios)
+    }
   }
 </script>
 
@@ -154,10 +163,22 @@
     width: 100%;
   }
   .tituloComentario{
-    background: $colorAzulB ;
+    background: $azulBC28 ;
     color: white;
+  }
+  .btnCerrar{
+    color: $rojoC28;
   }
   .timeline{
     background-color:$colorPrincipal;
+  }
+  .fecha{
+    width: 100%;
+    justify-content: center;
+    color: white;
+  }
+  .hora{
+    width: 100%;
+    justify-content: center;
   }
 </style>
