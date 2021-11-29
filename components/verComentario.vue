@@ -137,20 +137,13 @@ import { mapState, mapActions,mapGetters } from 'vuex'
           hora = new Date(dato);
           return hora.toLocaleTimeString('es-US')
         },
-        comF(dato){
         
-            console.log(dato);
-          
-       }
     },
     computed:{
         ...mapGetters('comentarios', {
             datosComentarios: 'getComentarios',
         }),
     },
-    mounted(){
-      this.comF(this.comentarios)
-    }
   }
 </script>
 

@@ -1,10 +1,11 @@
 <template>
+<v-container fluid>
   <v-row>
     <v-col cols="12">
         <v-container fluid>
           <v-col cols="12">
             <v-row align="center" justify="center" >
-              <v-col cols="4">
+              <v-col cols="12" sm="12" md="4" lg="4">
                   <v-text-field 
                     label="Buscar"
            
@@ -13,11 +14,10 @@
                     v-model="search"
                     append-icon="mdi-magnify"
                   >
-                  
                   </v-text-field>
               </v-col>
-              <v-col cols="3"></v-col>
-              <v-col cols="4" >
+              <v-col cols="0" sm="0" md="3" lg="3"></v-col>
+              <v-col cols="10" sm="10" md="4" lg="4">
                     <v-text-field 
                         label="Nuevo desarrollo"
                         clearable
@@ -33,29 +33,13 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="12">
-            <v-row no-gutters justify="center">
-                
-               <v-col cols="3" v-for=" dato in filteredCourses" :key="dato._id"  class="pa-2 mx-auto">
-                    <CardDesarrollo
-                      :key="dato._id"
-                      :img="dato.media"
-                      :nombre="dato.name"
-                      :direccion='dato.address'
-                      :status='dato.development_status'
-                      :precio='dato.pricing'
-                    />
-                </v-col>
-            </v-row>  
-          </v-col> 
           
           <v-col cols="12">
             <v-row no-gutters justify="center">
-                
                <div v-for=" dato in filteredCourses" :key="dato._id">
                     <CardsDessarrollo
                       :key="dato._id"
-                      :img="dato.media.featured_image"
+                      :img="dato.media"
                       :nombre="dato.name"
                       :direccion='dato.address'
                       :status='dato.development_status'
@@ -69,6 +53,8 @@
       </v-container>
     </v-col>
   </v-row>
+</v-container>
+  
 </template>
 <script>
 import { mapState, mapActions,mapGetters } from 'vuex'

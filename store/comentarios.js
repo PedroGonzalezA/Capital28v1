@@ -18,8 +18,10 @@ export const actions = {
     });
     commit('setComentarios',data.Data);
     commit('setComentariosM',data.Data.Manifest);
-    commit('setComentariosI',data.Data.Manifest);
     commit('setError',data.Code);
+  },
+  async comentarioA({commit},{dato}){
+    commit('setComentariosI',dato);
   },
 }
 
@@ -49,7 +51,7 @@ export const mutations = {
       state.comentarios = comentarios
     },
     setComentariosI(state,comentariosI) {
-      state.comentariosI = comentariosI
+      state.comentariosI =comentariosI.reverse()
     },
     setError(state,errores) {
         state.errores = errores

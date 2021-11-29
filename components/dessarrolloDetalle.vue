@@ -80,6 +80,7 @@
           >
             <v-btn
               color="primary"
+              href="https://cloudinary.com/users/register/free"
             >
               REGISTRARE EN CLOUDINARY
             </v-btn>
