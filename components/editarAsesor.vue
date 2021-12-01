@@ -1,26 +1,25 @@
 <template>
-  <div class="text-right">
+  <div class="text-center">
     <v-dialog
       v-model="dialog"
       width="500"
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          class="btnNuevoAsesor"
+          text
           dark
           v-bind="attrs"
           v-on="on"
+          class="btnEdit"
+          min-width="30%"
         >
-          <v-icon>
-              mdi-plus
-          </v-icon>
-          Agregar Asesor
+          <v-icon>mdi-playlist-edit</v-icon>
         </v-btn>
       </template>
 
       <v-card>
         <v-card-title class="text-h5 tituloComentario">
-          Agregar Asesor
+          Editar Asesor
           <v-spacer></v-spacer>
           <v-btn
             class="btnCerrar"            
@@ -39,42 +38,34 @@
                 <v-col cols="12" sm="12" md="6" lg="6" class="pb-0">
                     <v-text-field
                         label="Nombre"
+                        v-model="nombre"
                         outlined
                     ></v-text-field>
                 </v-col>
                 <v-col  cols="12" sm="12" md="6" lg="6" class="pb-0">
-                    <v-select
-                        :items="items"
-                        label="Rol"
+                    <v-text-field
+                        label="Usuario"
+                        disabled
+                        v-model="text"
                         outlined
-                    ></v-select>
+                    ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" lg="6" class="pb-0">
                     <v-text-field
                         label="Correo"
+                        disabled
                         outlined
+                        v-model="email"
                         type="email"
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="12" md="6" lg="6" class="pb-0">
                     <v-text-field
                         label="Telefono"
+                        v-model="telefono"
                         outlined
                     ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="12" md="6" lg="6" class="pb-0">
-                    <v-text-field
-                        label="Contraseña(Temporal)"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="12" md="6" lg="6" class="pb-0">
-                    <v-text-field
-                        label="Confirmar Contraseña(Temporal)"
-                        outlined
-                    ></v-text-field>
-                </v-col>
-                <v-col cols="12" class="pa-0"><div class="msj">Por seguridad, recuerda avisar al nuevo asesor actualizar su contraseña.</div> </v-col>
                 <v-col cols="12">
                     <v-row align="center" justify="center">
                         <v-col cols="12">
@@ -83,22 +74,13 @@
                         <v-col cols="12" class="">
                             <div>
                                 <v-chip class="chipD" color="#5fa7a4">
-                                    {{datosD}}
+                                    {{proyecto}}
                                 </v-chip>
                             </div>
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-col cols="12">
-                    <v-row align="center" justify="center">
-                        <v-col v-for="item in datosDesarrollo" :key="item._id" cols="12" class="pa-1">
-                           <v-btn @click="agregarDesarrollo(item.name)" block text class="btnD">
-                             <v-icon>mdi-plus</v-icon>
-                              {{item.name}} 
-                           </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-col>
+                
             </v-row>
         </v-card-text>
 
@@ -124,10 +106,10 @@ import { mapState, mapActions,mapGetters } from 'vuex'
     data () {
       return {
         dialog: false,
-              items: ['admin', 'broker'],
+        text:"Usuario"
       }
     },
-    computed: {
+     computed: {
         ...mapGetters('asesores', {
             datosD: 'getAgregarDato',
       }),
@@ -136,44 +118,56 @@ import { mapState, mapActions,mapGetters } from 'vuex'
 
     },
     methods: {
-      agregarDesarrollo(dato) {
+      editarDesarrollo(dato) {
             this.$store.dispatch('asesores/agregarDatos', { dato});
         }
   
     },
     props:{
-        datosDesarrollo: {
-          type: Array, required:'true',default:() => []
+        id: {
+          type: String,default:'Sin id',required:'true',
+        },
+        nombre: {
+          type: String,default:'Sin nombre',required:'true',
+        },
+        email: {
+          type: String,default:'Sin nombre',required:'true',
+        },
+        telefono: {
+          type: String,default:'Sin nombre',required:'true',
+        },
+        proyecto: {
+          type: String,default:'Sin nombre',required:'true',
         },
     }
   }
 </script>
 <style lang="scss" scoped>
-.msj{
-    color: orange;
-    font-size: 13px;
+ .btnEdit{
+    width: 50%;
     text-align: center;
-}
-.btnNuevoAsesor{
-    background: $azulC28;
-}
-.tituloComentario{
-    background: $azulC28;
+    color:white;
+  }
+  .btnNuevoAsesor{
+      background: $azulC28;
+  }
+  .tituloComentario{
+      background: $azulC28;
+      color: white;
+  }
+  .btnCerrar{
+      color:$rojoC28;
+  }
+  .btnD{
+    justify-content: start;
+  }
+  .chipD{
     color: white;
-}
-.btnCerrar{
-    color:$rojoC28;
-}
-.btnD{
-  justify-content: start;
-}
-.chipD{
-  color: white;
-  width: 100%;
-  justify-content: center;
-}
-.btnAceptar{
-  color: white;
-  background: $azulBC28;
-}
+    width: 100%;
+    justify-content: center;
+  }
+  .btnAceptar{
+    color: white;
+    background: $azulBC28;
+  }
 </style>

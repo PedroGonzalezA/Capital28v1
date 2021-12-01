@@ -46,7 +46,7 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
+                cols="6"
                 sm="6"
                 md="4"
                 class="pa-1"
@@ -59,8 +59,8 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
+                cols="3"
+                sm="2"
                 md="2"
                 class="pa-1"
               >
@@ -71,8 +71,8 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
-                sm="6"
+                cols="3"
+                sm="2"
                 md="2"
                 class="pa-1"
               >
@@ -82,14 +82,14 @@
                   type="number"
                 ></v-text-field>
               </v-col>
-              <v-col cols="4" class="pa-1">
+              <v-col cols="6" sm="4" class="pa-1">
                 <v-text-field
                   label="TDP"
                   v-model="TDP"
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
+                cols="6"
                 sm="4"
                 class="pa-1"
               >
@@ -102,7 +102,8 @@
               <v-divider></v-divider>
 
               <v-col 
-                cols="4" 
+                cols="6" 
+                sm="4"
                 class="pa-1"
               >
                 <v-text-field
@@ -112,7 +113,7 @@
                 ></v-text-field>
               </v-col>
               <v-col
-                cols="12"
+                cols="6"
                 sm="4"
                 class="pa-1"
               >

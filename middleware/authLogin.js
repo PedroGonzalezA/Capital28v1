@@ -1,6 +1,6 @@
 export default function({ redirect, store }) {
-    const isAuthenticated = store.state.user.email ? true : false
+    const isAuthenticated = store.state.token ? true : false
     if (isAuthenticated== true) {
       redirect('/admin/lead')
     }
-  }
+}

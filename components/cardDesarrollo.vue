@@ -6,7 +6,8 @@
             height="209px"
           >
             <div class="imagenE">
-                  <v-img v-bind:src='imagen.featured_image' class="imagenCard">              
+                  <v-img v-bind:src='imagen.featured_image' class="imagenCard">
+                    hola              
                     <div class="contenidoImagen">
                       <v-btn
                         class="text-capitalize botonImagen"

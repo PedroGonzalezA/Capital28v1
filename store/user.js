@@ -69,27 +69,7 @@ export const actions = {
     commit('setCode',data.code);
 
   },
-  async initAuth(vuexContext, req) {
-    let token
-    if (req) {
-        if (!req.headers.cookie) {
-            return;
-        }
-        const jwtCookie = req.headers.cookie
-            .split(';')
-            .find(c => c.trim().startsWith('jwt='));
-        if (!jwtCookie) {
-            return;
-        }
-        token = jwtCookie.split('=')[1];
-    } else {
-        token = localStorage.getItem('token');
-        if (!token) {
-            return;
-        }
-    }
-    vuexContext.commit('setToken', token);
-}
+
   
 }
 
